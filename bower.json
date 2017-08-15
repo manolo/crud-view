@@ -1,0 +1,34 @@
+{
+  "name": "crud-view",
+  "homepage": "https://vaadin.com/elements",
+  "authors": [
+    "Vaadin Ltd"
+  ],
+  "description": "crud-view",
+  "main": "crud-view.html",
+  "keywords": [
+    "Vaadin",
+    "crud-view",
+    "web-components",
+    "web-component",
+    "polymer"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer": "^2.0.0"
+  },
+  "devDependencies": {
+    "vaadin-text-field": "master",
+    "vaadin-grid": "^3.0.1",
+    "vaadin-combo-box": "^2.0.0",
+    "vaadin-button": "^1.0.0"
+  },
+  "resolutions": {
+    "vaadin-text-field": "master",
+    "vaadin-combo-box": "master"
+  }
+}

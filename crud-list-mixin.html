@@ -1,0 +1,67 @@
+
+<script>
+  /**
+   * Mixin for grids.
+   */
+  window.CrudListMixin = subclass => class extends subclass {
+    static get properties() {
+      return {
+        _activeItem: {
+          observer: '_onActiveItem'
+        },
+        _editableItem: Object
+      };
+    }
+
+    get dirty() {
+      return this.$.editor.dirty;
+    }
+
+    _onActiveItem() {
+      this._editItem();
+    }
+
+    _newItem() {
+      this._editableItem = {};
+    }
+
+    _editItem() {
+      // activeItem is set after clicking on grid elements
+      setTimeout(() => {
+        this._editableItem = this._activeItem;
+      });
+    }
+
+    _onClose() {
+      this.$.grid.selectedItems = [];
+      this._editableItem = null;
+    }
+
+    _onBeforeClose(e) {
+      if (this.dirty) {
+        e.preventDefault();
+      }
+    }
+
+    _onSave(e) {
+      window.console.log('SAVE', e.detail);
+    }
+
+    _onDelete(e) {
+      window.console.log('DELETE', e.detail);
+    }
+
+    _filterItems(change, filter) {
+      const items = change.base;
+      if (items && filter) {
+        return items.filter((item) => {
+          return Object.keys(item).reduce((last, current) => {
+            return last || String(item[current]).toLowerCase().includes(filter.toLowerCase());
+          }, false);
+        });
+      }
+      return items;
+    }
+  };
+
+</script>

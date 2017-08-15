@@ -1,0 +1,103 @@
+
+<dom-module id="vaadin-modal-dialog-styles">
+  <template>
+    <style>
+      :host {
+        position: fixed;
+        z-index: 200;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: auto;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+      :host(:not([opened])) {
+        display: none;
+      }
+      :host #back {
+        z-index: -1;
+        background: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      :host #fore {
+        max-height: 100%;
+        background: white;
+      }
+    </style>
+  </template>
+</dom-module>
+
+<script>
+  /**
+   * Adds listeners to body for closing the element on click and escape.
+   * It sends a `closed` or `opened` event up when the element changes the status.
+   */
+  window.VaadinDialogMixin = subclass => class extends subclass {
+    static get properties() {
+      return {
+        opened: {
+          type: Boolean,
+          reflectToAttribute: true,
+          observer: '_onOpened',
+          notify: true,
+          value: false
+        }
+      };
+    }
+
+    ready() {
+      super.ready();
+      this._clickListener = this._onBodyClick.bind(this);
+      this._keydownListener = this._onBodyKeydown.bind(this);
+      this._closeListener = this.close.bind(this);
+
+      this.addEventListener('click', e => e.stopPropagation());
+    }
+
+    _onOpened(opened, old) {
+      if (opened === true) {
+        setTimeout(() => {
+          document.body.addEventListener('click', this._clickListener);
+          document.body.addEventListener('keydown', this._keydownListener);
+          this.addEventListener('close', this._closeListener);
+        }, 2);
+      } else {
+        document.body.removeEventListener('click', this._clickListener);
+        document.body.removeEventListener('keydown', this._keydownListener);
+        this.removeEventListener('close', this._closeListener);
+      }
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        this.dispatchEvent(new CustomEvent(opened ? 'opened' : 'closed', {bubbles: true, composed: true}));
+      });
+    }
+
+    _onBodyClick(e) {
+      if (e.composedPath().indexOf(this) < 0) {
+        this.close();
+      }
+    }
+
+    _onBodyKeydown(e) {
+      if (e.keyCode == 27) {
+        this.close();
+      }
+    }
+
+    close(e) {
+      const customEvent = new CustomEvent('before-close', {composed: true, cancelable: true});
+      this.dispatchEvent(customEvent);
+      if (!customEvent.defaultPrevented) {
+        this.opened = false;
+      }
+    }
+  };
+</script>

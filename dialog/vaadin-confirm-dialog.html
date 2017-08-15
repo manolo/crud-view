@@ -1,0 +1,92 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-button/vaadin-button.html">
+<link rel="import" href="vaadin-dialog-mixin.html">
+
+<dom-module id="vaadin-confirm-dialog">
+  <template>
+    <style include="vaadin-modal-dialog-styles">
+      /*:host #fore {
+        max-width: 400px;
+        max-height: 200px;
+      }*/
+
+      #caption {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.57;
+        text-align: center;
+        color: rgba(42, 71, 110, 0.6);
+        margin-bottom: 0;
+        padding: 0 16px;
+      }
+
+      #message {
+        padding: 0 16px;
+        font-size: 16px;
+        line-height: 1.63;
+        color: rgba(53, 71, 97, 0.9);
+        display: flex;
+      }
+
+      #buttons {
+        border-top: 1px solid grey;
+        display: flex;
+      }
+    </style>
+
+    <div id="back" on-click="close"></div>
+    <div id="fore">
+      <p id="caption">[[caption]]</p>
+      <p id="message">[[message]]</p>
+      <div id="buttons">
+        <vaadin-button on-click="_ok" theme="tertiary danger">[[okText]]</vaadin-button>
+        <div style="flex: 1"></div>
+        <vaadin-button on-click="_cancel" theme="tertiary" class="right">[[cancelText]]</vaadin-button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    class VaadinConfirmDialog extends window.VaadinDialogMixin(Polymer.Element) {
+      static get is() {
+        return 'vaadin-confirm-dialog';
+      }
+
+      static get properties() {
+        return {
+          caption: {
+            type: String,
+            value: 'Confirmation needed'
+          },
+          message: {
+            type: String,
+            value: 'Do you want to continue?'
+          },
+          okText: {
+            type: String,
+            value: 'OK'
+          },
+          cancelText: {
+            type: String,
+            value: 'Cancel'
+          },
+          callback: Function
+        };
+      }
+
+      _cancel() {
+        this.opened = false;
+        this.callback = undefined;
+      }
+
+      _ok() {
+        if (this.callback) {
+          this.callback();
+        }
+        this._cancel();
+      }
+    }
+
+    window.customElements.define(VaadinConfirmDialog.is, VaadinConfirmDialog);
+  </script>
+</dom-module>
