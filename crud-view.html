@@ -1,4 +1,4 @@
-<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="dialog/vaadin-modal-dialog.html">
 
 <dom-module id="crud-view">
@@ -13,10 +13,10 @@
       }
       .grid-wrapper {
         flex: 1;
-        background: red;
+        display: flex;
       }
-
-      ::slotted([slot=grid]) {
+      .grid-wrapper ::slotted([slot=grid]) {
+        width: 100%;
         height: 100%;
       }
     </style>
