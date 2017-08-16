@@ -69,6 +69,7 @@
           document.body.addEventListener('click', this._clickListener);
           document.body.addEventListener('keydown', this._keydownListener);
           this.addEventListener('close', this._closeListener);
+          window.dispatchEvent(new CustomEvent('resize'));
         }, 2);
       } else {
         document.body.removeEventListener('click', this._clickListener);
