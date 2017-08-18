@@ -33,7 +33,10 @@
     }
 
     _onClose() {
-      this.$.grid.selectedItems = [];
+      if (this.$.grid) {
+        this.$.grid.selectedItems = [];
+        this.$.grid.activeItem = null;
+      }
       this._editableItem = null;
     }
 
@@ -44,23 +47,25 @@
     }
 
     _onSave(e) {
-      window.console.log('SAVE', e.detail);
+      if (this.items && this.items.indexOf(this._editableItem) >= 0) {
+        this.set('items.' + i, e.detail);
+      } else {
+        this.items && this.push('items', e.detail) || this.set('items', [e.detail]);
+      }
     }
 
     _onDelete(e) {
-      window.console.log('DELETE', e.detail);
+      this.splice('items', this.items.indexOf(e.detail), 1);
     }
 
-    _filterItems(change, filter) {
-      const items = change.base;
-      if (items && filter) {
-        return items.filter((item) => {
+    _filterItems(items, filter) {
+      if (items) {
+        return !filter ? items.slice(0) : items.filter((item) => {
           return Object.keys(item).reduce((last, current) => {
             return last || String(item[current]).toLowerCase().includes(filter.toLowerCase());
           }, false);
         });
       }
-      return items;
     }
   };
 
