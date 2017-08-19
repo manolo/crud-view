@@ -1,18 +1,34 @@
 
 <script>
   /**
-   * CRUD Mixin for a list of entities.
+   * CRUD Mixin for the entity list.
+   *
+   * @polymerMixin
    */
   window.CrudListMixin = subclass => class extends subclass {
     static get properties() {
       return {
+        /**
+         * The item activated in the list
+         */
         activeItem: {
+          type: Object,
           observer: '_onActiveItem'
         },
-        item: Object
+        /**
+         * The item to edit.
+         */
+        item: Object,
+        /**
+         * The string used to filter items
+         */
+        search: String
       };
     }
 
+    /**
+     * `true` if the editor has a `dirty` flag
+     */
     get dirty() {
       return this.$.editor && this.$.editor.dirty;
     }
@@ -21,7 +37,10 @@
       this._editItem();
     }
 
-    newItem() {
+    /**
+     * Create a new item, and edit it.
+     */
+    new() {
       this.activeItem = {};
     }
 
@@ -33,16 +52,23 @@
       });
     }
 
-    closed() {
+    /**
+     * Close the editor and unselect the edited item.
+     */
+    close() {
       if (this.$.grid) {
         this.$.grid.selectedItems = [];
         this.$.grid.activeItem = null;
       }
+      this.item = {};
       this.item = null;
       this.editing = false;
     }
 
-    saveItem(e) {
+    /**
+     * Save the edited item.
+     */
+    save(e) {
       var idx = this.items.indexOf(this.item);
       if (this.items && idx >= 0) {
         this.set('items.' + idx, e.detail);
@@ -51,15 +77,21 @@
       }
     }
 
-    deleteItem(e) {
+    /**
+     * Remove the edited item.
+     */
+    delete(e) {
       this.splice('items', this.items.indexOf(this.item), 1);
     }
 
-    filter(items, filter) {
+    /**
+     * Return the list of filtered items
+     */
+    filter(items, search) {
       if (items) {
-        return !filter ? items.slice(0) : items.filter((item) => {
+        return !search ? items.slice(0) : items.filter((item) => {
           return Object.keys(item).reduce((last, current) => {
-            return last || String(item[current]).toLowerCase().includes(filter.toLowerCase());
+            return last || String(item[current]).toLowerCase().includes(search.toLowerCase());
           }, false);
         });
       }

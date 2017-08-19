@@ -1,38 +1,76 @@
-<link rel="import" href="dialog/vaadin-confirm-dialog.html">
-
 <script>
   /**
-   * Mixin for entity editor.
+   * CRUD Mixin for the entity editor.
+   *
+   * It uses a `vaadin-confirm-dialog` for confirmation if it has been
+   * imported in the application, otherwise it downgrades to `window.confirm`
+   *
+   * @polymerMixin
    */
   window.CrudItemMixin = subclass => class extends subclass {
     static get properties() {
       return {
+        /**
+         * The entity being edited.
+         */
         item: Object,
+        /**
+         * `true` when the entity has been modified.
+         */
         dirty: Boolean,
+        /**
+         * `true` if it is editing a new entity.
+         */
         new: Boolean,
-
+        /**
+         * @private
+         */
         _dialog: Element,
+        /**
+         * @private
+         */
         deleteCaption: {
           value: 'Confirm Delete Item'
         },
+        /**
+         * @private
+         */
         deleteMessage: {
           value: 'Are you sure you want to delete the selected Item?. This action cannot be undone.'
         },
+        /**
+         * @private
+         */
         deleteOkText: {
           value: 'Delete'
         },
+        /**
+         * @private
+         */
         deleteCancelText: {
           value: 'Cancel'
         },
+        /**
+         * @private
+         */
         unsavedCaption: {
           value: 'Unsaved Changes'
         },
+        /**
+         * @private
+         */
         unsavedMessage: {
           value: 'There are unsave modifications to the Item. Are you sure to cancel the edition.'
         },
+        /**
+         * @private
+         */
         unsavedOkText: {
           value: 'Yes'
         },
+        /**
+         * @private
+         */
         unsavedCancelText: {
           value: 'Back'
         }
@@ -52,7 +90,8 @@
         this._dialog = document.createElement('vaadin-confirm-dialog');
         document.body.appendChild(this._dialog);
 
-        this.parentElement.addEventListener('before-close', e => {
+        // If this is in a vaadin-dialog, it sends a before-close event
+        this.parentNode.addEventListener('before-close', e => {
           this.dirty && e.preventDefault();
         });
       });
@@ -61,7 +100,7 @@
     _onItemChanged() {
       if (!this._itemLock) {
         this.dirty = false;
-        this.new = this.item && Object.keys(this.item).length === 0;
+        this.new = !this.item || Object.keys(this.item).length === 0;
         this._originalItemString = JSON.stringify(this.item);
 
         // We reuse item name wich is more meaningful in declarative
@@ -75,6 +114,9 @@
       this.dirty = JSON.stringify(this.item) != this._originalItemString;
     }
 
+    /**
+     * Cancel edition.
+     */
     cancel() {
       if (this.dirty) {
         this._confirm(() => this.close(true),
@@ -84,18 +126,26 @@
       }
     }
 
+    /**
+     * Sends up a `close` event. Useful when it is inside a dialog.
+     */
     close(force) {
       // if forced set dirty to true to avoid preventing close on before-close phase
       this.dirty = !force && this.dirty;
       this.dispatchEvent(new CustomEvent('close', {bubbles: true, composed: true}));
     }
 
+    /**
+     * Sends up a `save` event with the edited item as the detail.
+     */
     save() {
-      this.item = Object.assign(this.item, this.editable);
       this.dispatchEvent(new CustomEvent('save', {bubbles: true, composed: true, detail: this.item}));
       this.close(true);
     }
 
+    /**
+     * Sends up a `delete` event with the edited item as the detail.
+     */
     delete() {
       this._confirm(() => {
         this.dispatchEvent(new CustomEvent('delete', {bubbles: true, composed: true, detail: this.item}));
@@ -104,12 +154,18 @@
     }
 
     _confirm(callback, caption, message, okText, cancelText) {
-      this._dialog.callback = callback;
-      this._dialog.caption = caption;
-      this._dialog.message = message;
-      this._dialog.okText = okText;
-      this._dialog.cancelText = cancelText;
-      this._dialog.opened = true;
+      if (this._dialog.root) { // vaadin-confirm-dialog is imported
+        this._dialog.callback = callback;
+        this._dialog.caption = caption;
+        this._dialog.message = message;
+        this._dialog.okText = okText;
+        this._dialog.cancelText = cancelText;
+        this._dialog.opened = true;
+      } else { // fallback to window.confirm.
+        if (window.confirm(message)) {
+          callback();
+        }
+      }
     }
   };
 </script>

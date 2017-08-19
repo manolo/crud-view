@@ -42,10 +42,11 @@
   <script>
     /**
      * Helper element for CRUD views.
-     * It wraps a list-element for the entities (normally a vaadin-grid) which needs
-     * to extend `CrudListMixin`.
+     * It wraps:
+     *  - A list-element for the entities (normally a vaadin-grid) which needs
+     *    to extend `CrudListMixin`.
+     *  - An editor-element for the entity that need to extend `CrudItemdMixin`.
      *
-     * It also wraps an entity editor that need to exten `CrudItemdMixin`.
      * The editor is shown in a modal dialog that is opened when the `editing`
      * property is set to true.
      */
