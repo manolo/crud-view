@@ -136,11 +136,16 @@
     }
 
     /**
-     * Sends up a `save` event with the edited item as the detail.
+     * First it Checks that all form elements are valid, then it sends up a `save`
+     * event with the edited item as the detail.
      */
     save() {
-      this.dispatchEvent(new CustomEvent('save', {bubbles: true, composed: true, detail: this.item}));
-      this.close(true);
+      if (this.valid = Array.prototype.reduce.call(this.root.querySelectorAll('*'), (prev, elm) => {
+        return (elm.validate ? elm.validate() : elm.checkValidity ? elm.checkValidity() : true) && prev;
+      }, true)) {
+        this.dispatchEvent(new CustomEvent('save', {bubbles: true, composed: true, detail: this.item}));
+        this.close(true);
+      }
     }
 
     /**
