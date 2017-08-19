@@ -11,6 +11,9 @@
         display: flex;
         flex-direction: column;
       }
+      .header-wrapper {
+        display: flex;
+      }
       .grid-wrapper {
         flex: 1;
         display: flex;
@@ -30,7 +33,7 @@
     </div>
 
     <div class="editor-wrapper">
-      <vaadin-modal-dialog opened="[[editing]]" align="right" on-before-close="_onBeforeClose">
+      <vaadin-modal-dialog opened="[[editing]]" align="right">
         <slot name="editor"></slot>
       </vaadin-modal-dialog>
     </div>
@@ -38,43 +41,17 @@
 
   <script>
     /**
+     * Helper element for CRUD views.
+     * It wraps a list-element for the entities (normally a vaadin-grid) which needs
+     * to extend `CrudListMixin`.
      *
-     * @mixes CrudItemMixin
-     * @mixes CrudListMixin
+     * It also wraps an entity editor that need to exten `CrudItemdMixin`.
+     * The editor is shown in a modal dialog that is opened when the `editing`
+     * property is set to true.
      */
     class CrudView extends Polymer.Element {
       static get is() {
         return 'crud-view';
-      }
-
-      static get properties() {
-        return {
-          item: {
-            type: Object,
-            observer: '_onItemChanged'
-          },
-          editing: {
-            type: Boolean,
-            value: false,
-            reflectToAttribute: true
-          }
-        };
-      }
-
-      _onItemChanged(item) {
-        this.editing = !!item;
-      }
-
-      _newItem() {
-        this.dispatchEvent(new CustomEvent('new-item', {bubbles: true, composed: true}));
-      }
-
-      _onBeforeClose(e) {
-        var customEvent = new CustomEvent('before-close', {bubbles: true, composed: true, cancelable: true, detail: this.item});
-        this.dispatchEvent(customEvent);
-        if (customEvent.defaultPrevented) {
-          e.preventDefault();
-        }
       }
     }
 

@@ -2,19 +2,14 @@
 
 <script>
   /**
-   * Mixin for editors.
+   * Mixin for entity editor.
    */
   window.CrudItemMixin = subclass => class extends subclass {
     static get properties() {
       return {
         item: Object,
-
-        _editableItem: Object,
-
-        dirty: {
-          type: Boolean,
-          value: false
-        },
+        dirty: Boolean,
+        new: Boolean,
 
         _dialog: Element,
         deleteCaption: {
@@ -47,7 +42,7 @@
     static get observers() {
       return [
         '_onItemChanged(item)',
-        '_checkDirty(_editableItem.*)'
+        '_checkDirty(item.*)'
       ];
     }
 
@@ -56,17 +51,28 @@
       Polymer.RenderStatus.afterNextRender(this, () => {
         this._dialog = document.createElement('vaadin-confirm-dialog');
         document.body.appendChild(this._dialog);
+
+        this.parentElement.addEventListener('before-close', e => {
+          this.dirty && e.preventDefault();
+        });
       });
     }
 
     _onItemChanged() {
-      this.dirty = false;
-      this._originalItemString = JSON.stringify(this.item);
-      this._editableItem = Object.assign({}, this.item);
+      if (!this._itemLock) {
+        this.dirty = false;
+        this.new = this.item && Object.keys(this.item).length === 0;
+        this._originalItemString = JSON.stringify(this.item);
+
+        // We reuse item name wich is more meaningful in declarative
+        this._itemLock = true;
+        this.item = Object.assign({}, this.item);
+        this._itemLock = undefined;
+      }
     }
 
     _checkDirty() {
-      this.dirty = JSON.stringify(this._editableItem) != this._originalItemString;
+      this.dirty = JSON.stringify(this.item) != this._originalItemString;
     }
 
     cancel() {
@@ -85,8 +91,8 @@
     }
 
     save() {
-      this.item = Object.assign(this.item, this._editableItem);
-      this.dispatchEvent(new CustomEvent('save', {bubbles: true, composed: true, detail: this._editableItem}));
+      this.item = Object.assign(this.item, this.editable);
+      this.dispatchEvent(new CustomEvent('save', {bubbles: true, composed: true, detail: this.item}));
       this.close(true);
     }
 

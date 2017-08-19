@@ -1,64 +1,61 @@
 
 <script>
   /**
-   * Mixin for grids.
+   * CRUD Mixin for a list of entities.
    */
   window.CrudListMixin = subclass => class extends subclass {
     static get properties() {
       return {
-        _activeItem: {
+        activeItem: {
           observer: '_onActiveItem'
         },
-        _editableItem: Object
+        item: Object
       };
     }
 
     get dirty() {
-      return this.$.editor.dirty;
+      return this.$.editor && this.$.editor.dirty;
     }
 
     _onActiveItem() {
       this._editItem();
     }
 
-    _newItem() {
-      this._editableItem = {};
+    newItem() {
+      this.activeItem = {};
     }
 
     _editItem() {
       // activeItem is set after clicking on grid elements
       setTimeout(() => {
-        this._editableItem = this._activeItem;
+        this.item = this.activeItem;
+        this.editing = !!this.item;
       });
     }
 
-    _onClose() {
+    closed() {
       if (this.$.grid) {
         this.$.grid.selectedItems = [];
         this.$.grid.activeItem = null;
       }
-      this._editableItem = null;
+      this.item = null;
+      this.editing = false;
     }
 
-    _onBeforeClose(e) {
-      if (this.dirty) {
-        e.preventDefault();
-      }
-    }
-
-    _onSave(e) {
-      if (this.items && this.items.indexOf(this._editableItem) >= 0) {
-        this.set('items.' + i, e.detail);
+    saveItem(e) {
+      var idx = this.items.indexOf(this.item);
+      if (this.items && idx >= 0) {
+        this.set('items.' + idx, e.detail);
       } else {
         this.items && this.push('items', e.detail) || this.set('items', [e.detail]);
       }
     }
 
-    _onDelete(e) {
-      this.splice('items', this.items.indexOf(e.detail), 1);
+    deleteItem(e) {
+      this.splice('items', this.items.indexOf(this.item), 1);
     }
 
-    _filterItems(items, filter) {
+    filter(items, filter) {
       if (items) {
         return !filter ? items.slice(0) : items.filter((item) => {
           return Object.keys(item).reduce((last, current) => {
