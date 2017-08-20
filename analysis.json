@@ -49,7 +49,254 @@
       "tagname": "vaadin-modal-dialog"
     },
     {
-      "description": "Helper element for CRUD views.\nIt wraps:\n - A list-element for the entities (normally a vaadin-grid) which needs\n   to extend `CrudListMixin`.\n - An editor-element for the entity that need to extend `CrudItemdMixin`.\n\nThe editor is shown in a modal dialog that is opened when the `editing`\nproperty is set to true.",
+      "description": "",
+      "summary": "",
+      "path": "dialog/vaadin-confirm-dialog.html",
+      "properties": [
+        {
+          "name": "caption",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 50,
+              "column": 10
+            },
+            "end": {
+              "line": 53,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"Confirmation needed\""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"Do you want to continue?\""
+        },
+        {
+          "name": "okText",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 58,
+              "column": 10
+            },
+            "end": {
+              "line": 61,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"OK\""
+        },
+        {
+          "name": "cancelText",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 62,
+              "column": 10
+            },
+            "end": {
+              "line": 65,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"Cancel\""
+        },
+        {
+          "name": "callback",
+          "type": "Function",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 66,
+              "column": 10
+            },
+            "end": {
+              "line": 66,
+              "column": 28
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_cancel",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 6
+            },
+            "end": {
+              "line": 73,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_ok",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 75,
+              "column": 6
+            },
+            "end": {
+              "line": 80,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 43,
+          "column": 4
+        },
+        "end": {
+          "line": 81,
+          "column": 5
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "VaadinConfirmDialog",
+      "attributes": [
+        {
+          "name": "caption",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 50,
+              "column": 10
+            },
+            "end": {
+              "line": 53,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "message",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "ok-text",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 58,
+              "column": 10
+            },
+            "end": {
+              "line": 61,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "cancel-text",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 62,
+              "column": 10
+            },
+            "end": {
+              "line": 65,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "callback",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 66,
+              "column": 10
+            },
+            "end": {
+              "line": 66,
+              "column": 28
+            }
+          },
+          "metadata": {},
+          "type": "Function"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "vaadin-confirm-dialog"
+    },
+    {
+      "description": "Helper element for CRUD views.\n\nIt has 3 slots:\n - The `header` slot is normally for the filtering input and the new button.\n - The `grid` slot wraps a list element (normally a vaadin-grid) which needs\n   to extend the `CrudListMixin`.\n - The `editor` slot wraps an element for entity modification that needs to\n   extend the `CrudItemdMixin`.\n\nThe editor is shown in a modal dialog that is opened when the `editing`\nproperty is set to true. It imports and uses the `vaadin-dialog` element.\n```\n<crud-view editing=\"[[editing]]\" on-close=\"close\">\n  <input value=\"{{search::input}}\" slot=\"header\"></input>\n  <button slot=\"header\" on-click=\"new\">New Item</button>\n  <vaadin-grid id=\"grid\" slot=\"grid\"\n    items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n    ...\n  </vaadin-grid>\n\n  <my-editor id=\"editor\" slot=\"editor\" item=\"[[item]]\"\n    on-save=\"save\" on-delete=\"delete\" on-close=\"close\"><my-editor>\n\n</crud-view>\n```",
       "summary": "",
       "path": "crud-view.html",
       "properties": [
@@ -3278,11 +3525,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 52,
+          "line": 70,
           "column": 4
         },
         "end": {
-          "line": 56,
+          "line": 74,
           "column": 5
         }
       },
@@ -3302,11 +3549,11 @@
           "range": {
             "file": "crud-view.html",
             "start": {
-              "line": 27,
+              "line": 28,
               "column": 6
             },
             "end": {
-              "line": 28,
+              "line": 29,
               "column": 4
             }
           }
@@ -3317,11 +3564,11 @@
           "range": {
             "file": "crud-view.html",
             "start": {
-              "line": 31,
+              "line": 32,
               "column": 6
             },
             "end": {
-              "line": 31,
+              "line": 32,
               "column": 31
             }
           }
@@ -3332,11 +3579,11 @@
           "range": {
             "file": "crud-view.html",
             "start": {
-              "line": 36,
+              "line": 37,
               "column": 8
             },
             "end": {
-              "line": 36,
+              "line": 37,
               "column": 35
             }
           }
@@ -3633,7 +3880,7 @@
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 98,
               "column": 5
             }
           },
@@ -3646,11 +3893,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 103,
+              "line": 105,
               "column": 4
             },
             "end": {
-              "line": 110,
+              "line": 112,
               "column": 5
             }
           },
@@ -3663,11 +3910,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 115,
+              "line": 117,
               "column": 4
             },
             "end": {
-              "line": 119,
+              "line": 121,
               "column": 5
             }
           },
@@ -3684,11 +3931,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 127,
               "column": 4
             },
             "end": {
-              "line": 132,
+              "line": 134,
               "column": 5
             }
           },
@@ -3701,11 +3948,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 137,
+              "line": 139,
               "column": 4
             },
             "end": {
-              "line": 142,
+              "line": 144,
               "column": 5
             }
           },
@@ -3718,11 +3965,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 144,
+              "line": 146,
               "column": 4
             },
             "end": {
-              "line": 157,
+              "line": 159,
               "column": 5
             }
           },
@@ -3755,7 +4002,7 @@
           "column": 2
         },
         "end": {
-          "line": 158,
+          "line": 160,
           "column": 3
         }
       },
@@ -3890,11 +4137,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 28,
+              "line": 32,
               "column": 4
             },
             "end": {
-              "line": 30,
+              "line": 34,
               "column": 5
             }
           },
@@ -3907,11 +4154,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 35,
+              "line": 39,
               "column": 4
             },
             "end": {
-              "line": 37,
+              "line": 43,
               "column": 5
             }
           },
@@ -3924,11 +4171,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 39,
+              "line": 45,
               "column": 4
             },
             "end": {
-              "line": 45,
+              "line": 53,
               "column": 5
             }
           },
@@ -3941,11 +4188,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 50,
+              "line": 58,
               "column": 4
             },
             "end": {
-              "line": 60,
+              "line": 68,
               "column": 5
             }
           },
@@ -3958,11 +4205,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 65,
+              "line": 73,
               "column": 4
             },
             "end": {
-              "line": 72,
+              "line": 80,
               "column": 5
             }
           },
@@ -3979,11 +4226,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 77,
+              "line": 85,
               "column": 4
             },
             "end": {
-              "line": 79,
+              "line": 87,
               "column": 5
             }
           },
@@ -4000,11 +4247,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 87,
+              "line": 95,
               "column": 4
             },
             "end": {
-              "line": 96,
+              "line": 104,
               "column": 5
             }
           },
@@ -4028,7 +4275,7 @@
           "column": 2
         },
         "end": {
-          "line": 97,
+          "line": 105,
           "column": 3
         }
       },

@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="dialog/vaadin-modal-dialog.html">
+<link rel="import" href="dialog/vaadin-confirm-dialog.html">
 
 <dom-module id="crud-view">
   <template>
@@ -42,13 +43,30 @@
   <script>
     /**
      * Helper element for CRUD views.
-     * It wraps:
-     *  - A list-element for the entities (normally a vaadin-grid) which needs
-     *    to extend `CrudListMixin`.
-     *  - An editor-element for the entity that need to extend `CrudItemdMixin`.
+     *
+     * It has 3 slots:
+     *  - The `header` slot is normally for the filtering input and the new button.
+     *  - The `grid` slot wraps a list element (normally a vaadin-grid) which needs
+     *    to extend the `CrudListMixin`.
+     *  - The `editor` slot wraps an element for entity modification that needs to
+     *    extend the `CrudItemdMixin`.
      *
      * The editor is shown in a modal dialog that is opened when the `editing`
-     * property is set to true.
+     * property is set to true. It imports and uses the `vaadin-dialog` element.
+     * ```
+     * <crud-view editing="[[editing]]" on-close="close">
+     *   <input value="{{search::input}}" slot="header"></input>
+     *   <button slot="header" on-click="new">New Item</button>
+     *   <vaadin-grid id="grid" slot="grid"
+     *     items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
+     *     ...
+     *   </vaadin-grid>
+     *
+     *   <my-editor id="editor" slot="editor" item="[[item]]"
+     *     on-save="save" on-delete="delete" on-close="close"><my-editor>
+     *
+     * </crud-view>
+     * ```
      */
     class CrudView extends Polymer.Element {
       static get is() {
