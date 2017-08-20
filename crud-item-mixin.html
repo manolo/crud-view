@@ -2,8 +2,8 @@
   /**
    * CRUD Mixin for the entity editor.
    *
-   * It uses a `vaadin-confirm-dialog` for confirmation if it has been
-   * imported in the application, otherwise it downgrades to `window.confirm`
+   * When available, it uses a `vaadin-confirm-dialog`, otherwise it
+   * downgrades to `window.confirm`.
    *
    * @polymerMixin
    */
@@ -22,55 +22,38 @@
          * `true` if it is editing a new entity.
          */
         new: Boolean,
-        /**
-         * @private
-         */
+
+        /** @private */
         _dialog: Element,
-        /**
-         * @private
-         */
+        /** @private */
         deleteCaption: {
           value: 'Confirm Delete Item'
         },
-        /**
-         * @private
-         */
+        /** @private */
         deleteMessage: {
           value: 'Are you sure you want to delete the selected Item?. This action cannot be undone.'
         },
-        /**
-         * @private
-         */
+        /** @private */
         deleteOkText: {
           value: 'Delete'
         },
-        /**
-         * @private
-         */
+        /** @private */
         deleteCancelText: {
           value: 'Cancel'
         },
-        /**
-         * @private
-         */
+        /** @private */
         unsavedCaption: {
           value: 'Unsaved Changes'
         },
-        /**
-         * @private
-         */
+        /** @private */
         unsavedMessage: {
           value: 'There are unsave modifications to the Item. Are you sure to cancel the edition.'
         },
-        /**
-         * @private
-         */
+        /** @private */
         unsavedOkText: {
           value: 'Yes'
         },
-        /**
-         * @private
-         */
+        /** @private */
         unsavedCancelText: {
           value: 'Back'
         }
@@ -115,7 +98,8 @@
     }
 
     /**
-     * Cancel edition.
+     * Sends up a `close` event, but previously it checks for the `dirty` flag
+     * asking the user for confirmation.
      */
     cancel() {
       if (this.dirty) {
@@ -127,7 +111,7 @@
     }
 
     /**
-     * Sends up a `close` event. Useful when it is inside a dialog.
+     * Sends up a `close` event. If `force == true` it also unsets the dirty flag.
      */
     close(force) {
       // if forced set dirty to true to avoid preventing close on before-close phase

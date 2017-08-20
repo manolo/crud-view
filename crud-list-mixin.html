@@ -1,7 +1,7 @@
 
 <script>
   /**
-   * CRUD Mixin for the entity list.
+   * Mixin for the entity list. It has all the methods for CRUD operations.
    *
    * @polymerMixin
    */
@@ -26,13 +26,6 @@
       };
     }
 
-    /**
-     * `true` if the editor has a `dirty` flag
-     */
-    get dirty() {
-      return this.$.editor && this.$.editor.dirty;
-    }
-
     _onActiveItem() {
       this._editItem();
     }
@@ -53,20 +46,22 @@
     }
 
     /**
-     * Close the editor and unselect the edited item.
+     * Unselects the edited item and closes the editor.
      */
     close() {
       if (this.$.grid) {
         this.$.grid.selectedItems = [];
         this.$.grid.activeItem = null;
       }
+      // Need to double assign to reset all editor fields.
       this.item = {};
       this.item = null;
+
       this.editing = false;
     }
 
     /**
-     * Save the edited item.
+     * Persists the changes made to the edited item into the `items` array.
      */
     save(e) {
       var idx = this.items.indexOf(this.item);
@@ -78,20 +73,24 @@
     }
 
     /**
-     * Remove the edited item.
+     * Removes the selected item from the `items` array.
      */
     delete(e) {
       this.splice('items', this.items.indexOf(this.item), 1);
     }
 
     /**
-     * Return the list of filtered items
+     * Returns the list of filtered items. You need to Assign this method to your
+     * grid component in order to enable filtering.
+     * The default implementation looks for coincidences of the `search` string
+     * in all string properties of the entity.
      */
     filter(items, search) {
       if (items) {
         return !search ? items.slice(0) : items.filter((item) => {
           return Object.keys(item).reduce((last, current) => {
-            return last || String(item[current]).toLowerCase().includes(search.toLowerCase());
+            return last || typeof item[current] == 'string'
+              && item[current].toLowerCase().includes(search.toLowerCase());
           }, false);
         });
       }
