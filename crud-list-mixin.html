@@ -26,6 +26,10 @@
       };
     }
 
+    get dirty() {
+      return this.$.editor && this.$.editor.dirty;
+    }
+
     _onActiveItem() {
       this._editItem();
     }
@@ -34,15 +38,19 @@
      * Create a new item, and edit it.
      */
     new() {
-      this.activeItem = {};
+      if (!this.dirty) {
+        this.activeItem = {};
+      }
     }
 
     _editItem() {
-      // activeItem is set after clicking on grid elements
-      setTimeout(() => {
-        this.item = this.activeItem;
-        this.editing = !!this.item;
-      });
+      if (!this.dirty) {
+        // activeItem is set after clicking on grid elements
+        setTimeout(() => {
+          this.item = this.activeItem;
+          this.editing = !!this.item;
+        });
+      }
     }
 
     /**
