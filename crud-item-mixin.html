@@ -83,7 +83,7 @@
     _onItemChanged() {
       if (!this._itemLock) {
         this.dirty = false;
-        this.new = !this.item || Object.keys(this.item).length === 0;
+        this.new = !this.item || Object.keys(this.item).length < 1;
         this._originalItemString = JSON.stringify(this.item);
 
         // We reuse item name wich is more meaningful in declarative
@@ -94,8 +94,10 @@
     }
 
     _checkDirty() {
-      this.dirty = JSON.stringify(this.item) != this._originalItemString;
+      this.dirty = this.item && Object.keys(this.item).length > 0
+        && JSON.stringify(this.item) != this._originalItemString;
     }
+
 
     /**
      * Sends up a `close` event, but previously it checks for the `dirty` flag
