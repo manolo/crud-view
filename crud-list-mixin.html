@@ -16,13 +16,21 @@
           observer: '_onActiveItem'
         },
         /**
+         * The list of entities.
+         */
+        items: Array,
+        /**
          * The item to edit.
          */
         item: Object,
         /**
-         * The string used to filter items
+         * The string used to filter items.
          */
-        search: String
+        search: String,
+        /**
+         * `true` if there is an item selected for edition.
+         */
+        editing: Boolean
       };
     }
 
