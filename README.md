@@ -1,10 +1,14 @@
-![Bower version](https://img.shields.io/bower/v/crud-view.svg)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vaadin/vaadin-core-elements?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # &lt;crud-view&gt;
 
 
-&lt;crud-view&gt; is a [Polymer 2](http://polymer-project.org) element and a couple of mixins providing an easy way to show and edit a list of JSON objects.
+&lt;crud-view&gt; is a [Polymer 2](http://polymer-project.org) Element and a couple of Mixins providing an easy way to display, sort, filter and make modifications to a list of JSON objects.
+
+## Components
+
+- `CrudListMixin`: ES6 class for the list view.
+- `CrudItemMixin`: ES6 class for the entity editor.
+- `<crud-view>`: Helper element to enable dialogs.
 
 ## License
 
