@@ -4,6 +4,11 @@
 
 &lt;crud-view&gt; is a [Polymer 2](http://polymer-project.org) Element and a couple of Mixins providing an easy way to display, sort, filter and make modifications to a list of JSON objects.
 
+### Demo
+
+- [Users CRUD Valo Theme →](https://manolo.github.io/crud-demo/index-valo.html)
+- [Users CRUD Material Design →](https://manolo.github.io/crud-demo/index-material.html)
+
 ## Components
 
 - `CrudListMixin`: ES6 class for the list view.
