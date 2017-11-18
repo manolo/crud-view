@@ -19,9 +19,9 @@
          */
         dirty: Boolean,
         /**
-         * `true` if it is editing a new entity.
+         * `true` if it is editing a isNew entity.
          */
-        new: Boolean,
+        isNew: Boolean,
 
         /** @private */
         _dialog: Element,
@@ -83,7 +83,7 @@
     _onItemChanged() {
       if (!this._itemLock) {
         this.dirty = false;
-        this.new = !this.item || Object.keys(this.item).length < 1;
+        this.isNew = !this.item || Object.keys(this.item).length < 1;
         this._originalItemString = JSON.stringify(this.item);
 
         // We reuse item name wich is more meaningful in declarative

@@ -19,7 +19,10 @@
     "bower_components"
   ],
   "dependencies": {
-    "polymer": "^2.0.0"
+    "polymer": "^2.0.0",
+    "vaadin-overlay": "master",
+    "vaadin-dialog": "master",
+    "vaadin-notification": "vaadin/vaadin-notification#master"
   },
   "devDependencies": {
     "vaadin-text-field": "master",
@@ -29,6 +32,7 @@
   },
   "resolutions": {
     "vaadin-text-field": "master",
-    "vaadin-combo-box": "master"
+    "vaadin-combo-box": "master",
+    "vaadin-overlay": "master"
   }
 }
