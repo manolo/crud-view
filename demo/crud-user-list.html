@@ -1,0 +1,64 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../../vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="../../vaadin-grid/vaadin-grid-column-group.html">
+<link rel="import" href="../../vaadin-text-field/vaadin-text-field.html">
+<link rel="import" href="../../vaadin-button/vaadin-button.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../crud-view/crud-list-mixin.html">
+<link rel="import" href="../../crud-view/crud-view.html">
+<link rel="import" href="../../vaadin-pouchdb/vaadin-pouchdb.html">
+
+<link rel="import" href="crud-user-editor.html">
+
+<dom-module id="crud-user-list">
+  <template>
+
+    <!-- <iron-ajax auto url="/dummy/users.json" handle-as="json" last-response="{{items}}"></iron-ajax> -->
+    <vaadin-pouchdb id="db" dbname="crud-demo" data="{{items}}"
+      remote="https://manolo.cloudant.com/demo"
+      ></vaadin-pouchdb>
+
+    <crud-view editing="[[editing]]" on-closed="close" style="padding: 8px; box-sizing: border-box;">
+
+      <vaadin-text-field slot="header" placeholder="Search ..." value="{{search}}" style="flex: 1"></vaadin-text-field>
+      <vaadin-button slot="header" on-click="new" theme="primary">New Item</vaadin-button>
+
+      <vaadin-grid slot="grid" id="grid" items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
+        <vaadin-grid-column width="270px">
+          <template class="header">
+            <vaadin-grid-sorter path="email">Email</vaadin-grid-sorter>
+          </template>
+          <template>[[item.email]]</template>
+        </vaadin-grid-column>
+        <vaadin-grid-column width="200px">
+          <template class="header">
+            <vaadin-grid-sorter path="name">Name</vaadin-grid-sorter>
+          </template>
+          <template>[[item.name]] [[item.last]]</template>
+        </vaadin-grid-column>
+        <vaadin-grid-column>
+          <template class="header">
+            <vaadin-grid-sorter path="role">Role</vaadin-grid-sorter>
+          </template>
+          <template>[[item.role]]</template>
+        </vaadin-grid-column>
+      </vaadin-grid>
+
+      <crud-user-editor slot="editor" id="editor"
+        item="[[item]]" on-save="save" on-delete="delete">
+      </crud-user-editor>
+    </crud-view>
+  </template>
+
+  <script>
+    class CrudUserList extends window.CrudListMixin(Polymer.Element) {
+      static get is() {
+        return 'crud-user-list';
+      }
+
+    }
+
+    window.customElements.define(CrudUserList.is, CrudUserList);
+  </script>
+</dom-module>

@@ -1,0 +1,65 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-text-field/vaadin-text-field.html">
+<link rel="import" href="../../vaadin-text-field/vaadin-password-field.html">
+<link rel="import" href="../../vaadin-button/vaadin-button.html">
+<link rel="import" href="../../vaadin-form-layout/vaadin-form-layout.html">
+<link rel="import" href="../../vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../../vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../../crud-view/crud-item-mixin.html">
+
+<dom-module id="crud-user-editor">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+        max-width: 800px;
+      }
+      .buttons {
+        display: flex;
+        padding: 5px 0;
+      }
+      .fit {
+        flex: 1;
+        overflow: auto;
+      }
+    </style>
+
+    <h3>User Editor</h3>
+    <vaadin-form-layout class="fit">
+      <vaadin-text-field label="Email (login)" value="{{item.email}}" colspan="2" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></vaadin-text-field>
+      <br>
+      <vaadin-password-field label="Password" value="{{item.password}}" colspan="2" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"></vaadin-password-field>
+      <br>
+      <vaadin-text-field label="First Name" value="{{item.name}}" pattern=".{3,}" required></vaadin-text-field>
+      <vaadin-text-field label="Last Name" value="{{item.last}}"></vaadin-text-field>
+      <br>
+      <vaadin-combo-box label="Role" value="{{item.role}}" items='["admin", "operator", "user"]' required></vaadin-combo-box>
+      <vaadin-date-picker label="Birthday" value="{{item.birthday}}"></vaadin-date-picker>
+    </vaadin-form-layout>
+
+    <div class="buttons">
+      <vaadin-button on-click="save" disabled="[[!dirty]]" theme="raised primary">Save</vaadin-button>
+      <vaadin-button on-click="cancel" theme="raised">Cancel</vaadin-button>
+      <span class="fit"></span>
+      <vaadin-button on-click="delete" disabled="[[_new]]" theme="raised danger">Delete</vaadin-button>
+    </div>
+  </template>
+
+  <script>
+    class CrudUserEditor extends window.CrudItemMixin(Polymer.Element) {
+      static get is() {
+        return 'crud-user-editor';
+      }
+      _new() {
+        return this.new;
+      }
+
+    }
+
+    window.customElements.define(CrudUserEditor.is, CrudUserEditor);
+  </script>
+</dom-module>
