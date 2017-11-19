@@ -98,10 +98,12 @@
         this.isNew = !this.item || Object.keys(this.item).length < 1;
         this._originalItemString = JSON.stringify(this.item);
 
-        // We reuse item name wich is more meaningful in declarative
-        this._itemLock = true;
-        this.item = Object.assign({}, this.item);
-        this._itemLock = undefined;
+        if (this.item) {
+          // We reuse item name wich is more meaningful in declarative
+          this._itemLock = true;
+          this.item = Object.assign({}, this.item);
+          this._itemLock = undefined;
+        }
       }
     }
 

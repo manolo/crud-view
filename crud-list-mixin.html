@@ -104,6 +104,7 @@
      */
     delete(e) {
       this.splice('items', this.items.indexOf(this.item), 1);
+      this.item = undefined;
     }
 
     /**
