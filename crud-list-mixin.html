@@ -9,6 +9,13 @@
     static get properties() {
       return {
         /**
+         * Used for mixin detection because `instanceof` does not work with mixins.
+         */
+        _hasCrudListtMixin: {
+          value: true
+        },
+
+        /**
          * The item activated in the list
          */
         activeItem: {
@@ -30,12 +37,16 @@
         /**
          * `true` if there is an item selected for edition.
          */
-        editing: Boolean
+        editing: {
+          type: Boolean,
+          notify: true
+        }
       };
     }
 
     get dirty() {
-      return this.$.editor && this.$.editor.dirty;
+      this._editor = this._editor || this.$ && this.$.editor;
+      return this._editor && this._editor.dirty || false;
     }
 
     _onActiveItem() {
