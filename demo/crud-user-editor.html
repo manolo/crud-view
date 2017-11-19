@@ -45,7 +45,7 @@
       <vaadin-button on-click="save" disabled="[[!dirty]]" theme="raised primary">Save</vaadin-button>
       <vaadin-button on-click="cancel" theme="raised">Cancel</vaadin-button>
       <span class="fit"></span>
-      <vaadin-button on-click="delete" disabled="[[_new]]" theme="raised danger">Delete</vaadin-button>
+      <vaadin-button on-click="delete" disabled="[[isNew]]" theme="raised danger">Delete</vaadin-button>
     </div>
   </template>
 
@@ -54,10 +54,6 @@
       static get is() {
         return 'crud-user-editor';
       }
-      _new() {
-        return this.new;
-      }
-
     }
 
     window.customElements.define(CrudUserEditor.is, CrudUserEditor);
