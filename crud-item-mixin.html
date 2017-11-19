@@ -11,17 +11,29 @@
     static get properties() {
       return {
         /**
+         * Used for mixin detection because `instanceof` does not work with mixins.
+         */
+        _hasCrudItemtMixin: {
+          value: true
+        },
+        /**
          * The entity being edited.
          */
         item: Object,
         /**
          * `true` when the entity has been modified.
          */
-        dirty: Boolean,
+        dirty: {
+         type: Boolean,
+         notify: true
+        },
         /**
          * `true` if it is editing a isNew entity.
          */
-        isNew: Boolean,
+        isNew: {
+          type: Boolean,
+          notify: true
+        },
 
         /** @private */
         _dialog: Element,
@@ -97,7 +109,6 @@
       this.dirty = this.item && Object.keys(this.item).length > 0
         && JSON.stringify(this.item) != this._originalItemString;
     }
-
 
     /**
      * Sends up a `close` event, but previously it checks for the `dirty` flag
