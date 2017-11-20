@@ -19,7 +19,7 @@
       remote="https://manolo.cloudant.com/demo"
       ></vaadin-pouchdb>
 
-    <crud-view editing="[[editing]]" on-closed="close" style="padding: 8px; box-sizing: border-box;">
+    <crud-view item="[[item]]" style="padding: 8px; box-sizing: border-box;">
 
       <vaadin-text-field slot="header" placeholder="Search ..." value="{{search}}" style="flex: 1"></vaadin-text-field>
       <vaadin-button slot="header" on-click="new" theme="primary">New Item</vaadin-button>
@@ -45,9 +45,9 @@
         </vaadin-grid-column>
       </vaadin-grid>
 
-      <crud-user-editor slot="editor" id="editor"
-        item="[[item]]" on-save="save" on-delete="delete">
-      </crud-user-editor>
+      <template class="editor">
+        <crud-user-editor item="[[item]]" on-save="save" on-delete="delete" on-close="close"></crud-user-editor>
+      </template>
     </crud-view>
   </template>
 
