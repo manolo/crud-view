@@ -79,19 +79,6 @@
       ];
     }
 
-    ready() {
-      super.ready();
-      Polymer.RenderStatus.afterNextRender(this, () => {
-        this._dialog = document.createElement('vaadin-confirm-dialog');
-        document.body.appendChild(this._dialog);
-
-        // If this is in a vaadin-dialog, it sends a before-close event
-        this.parentNode.addEventListener('before-close', e => {
-          this.dirty && e.preventDefault();
-        });
-      });
-    }
-
     _onItemChanged() {
       if (!this._itemLock) {
         this.dirty = false;
@@ -158,7 +145,7 @@
     }
 
     _confirm(callback, caption, message, okText, cancelText) {
-      if (this._dialog.root) { // vaadin-confirm-dialog is imported
+      if (this._dialog) { // vaadin-confirm-dialog is imported
         this._dialog.callback = callback;
         this._dialog.caption = caption;
         this._dialog.message = message;

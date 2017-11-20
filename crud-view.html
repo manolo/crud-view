@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="dialog/vaadin-modal-dialog.html">
-<link rel="import" href="dialog/vaadin-confirm-dialog.html">
+<link rel="import" href="vaadin-confirm-dialog.html">
+<link rel="import" href="../vaadin-dialog/vaadin-dialog.html">
 
 <dom-module id="crud-view">
   <template>
@@ -34,9 +34,10 @@
     </div>
 
     <div class="editor-wrapper">
-      <vaadin-modal-dialog opened="[[editing]]" align="right">
-        <slot name="editor"></slot>
-      </vaadin-modal-dialog>
+      <vaadin-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]]>
+      </vaadin-dialog>
+      <vaadin-confirm-dialog id="confirm">
+      </vaadin-confirm-dialog>
     </div>
   </template>
 
@@ -44,15 +45,19 @@
     /**
      * Helper element for CRUD views.
      *
-     * It has 3 slots:
+     * It has 2 slots:
      *  - The `header` slot is normally for the filtering input and the new button.
      *  - The `grid` slot wraps a list element (normally a vaadin-grid) which needs
      *    to extend the `CrudListMixin`.
-     *  - The `editor` slot wraps an element for entity modification that needs to
-     *    extend the `CrudItemdMixin`.
      *
-     * The editor is shown in a modal dialog that is opened when the `editing`
-     * property is set to true. It imports and uses the `vaadin-dialog` element.
+     * It also needs a template:
+     *  - The `template` classed as `class="ecitor"` wraps an element for entity
+     *    modification that needs to extend the `CrudItemdMixin`.
+     *    The editor is shown in a modal dialog that is opened when the `editing`
+     *    property is set to true. It imports and uses the `vaadin-dialog` element.
+     *    Note that the template content is teleported to the body by the `vaadin-dialog`
+     *    hence you need to take care when styling the content.
+     *
      * ```
      * <crud-view editing="[[editing]]" on-close="close">
      *   <input value="{{search::input}}" slot="header"></input>
@@ -69,8 +74,50 @@
      * ```
      */
     class CrudView extends Polymer.Element {
+      static get properties() {
+        return {
+          /**
+           * The edited item.
+           */
+          item: {
+            type: Object,
+            observer: '_itemChanged'
+          }
+        };
+      }
       static get is() {
         return 'crud-view';
+      }
+
+      get _host() {
+        return this.getRootNode().host;
+      }
+
+      ready() {
+        super.ready();
+        this._template = this.querySelector('.editor')
+        this.$.dialog.appendChild(this._template);
+      }
+
+      _updateVars() {
+        this.dirty = this._editor.dirty;
+        this._noClose = this.dirty || this.$.confirm.opened;
+      }
+
+      _itemChanged(item) {
+        this.$.dialog.opened = !!item;
+        if (this._template && !this._editor) {
+          this._editor = Array.from(this.$.dialog.$.overlay.shadowRoot.querySelectorAll('*')).filter(e => e._hasCrudItemtMixin)[0];
+          if (this._editor) {
+            this._editor.addEventListener('dirty-changed', () => this._updateVars());
+            this.$.confirm.addEventListener('opened-changed', () => this._updateVars());
+            this._editor._dialog = this.$.confirm;
+            this._list = this.getRootNode().host;
+            if (this._list._hasListItemtMixin) {
+              this._list._editor = this._editor;
+            }
+          }
+        }
       }
     }
 

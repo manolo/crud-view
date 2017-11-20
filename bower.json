@@ -21,7 +21,7 @@
   "dependencies": {
     "polymer": "^2.0.0",
     "vaadin-overlay": "master",
-    "vaadin-dialog": "master",
+    "vaadin-dialog": "vaadin/vaadin-dialog#fix/class-name",
     "vaadin-notification": "vaadin/vaadin-notification#master"
   },
   "devDependencies": {
