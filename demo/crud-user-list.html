@@ -14,10 +14,10 @@
 <dom-module id="crud-user-list">
   <template>
 
-    <!-- <iron-ajax auto url="/dummy/users.json" handle-as="json" last-response="{{items}}"></iron-ajax> -->
-    <vaadin-pouchdb id="db" dbname="crud-demo" data="{{items}}"
+    <iron-ajax auto url="users.json" handle-as="json" last-response="{{items}}"></iron-ajax>
+    <!-- <vaadin-pouchdb id="db" dbname="crud-demo" data="{{items}}"
       remote="https://manolo.cloudant.com/demo"
-      ></vaadin-pouchdb>
+      ></vaadin-pouchdb> -->
 
     <crud-view item="[[item]]" style="padding: 8px; box-sizing: border-box;">
 
@@ -56,7 +56,6 @@
       static get is() {
         return 'crud-user-list';
       }
-
     }
 
     window.customElements.define(CrudUserList.is, CrudUserList);

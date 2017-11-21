@@ -25,17 +25,19 @@
     "vaadin-notification": "vaadin/vaadin-notification#master"
   },
   "devDependencies": {
-    "vaadin-grid": "^3.0.1",
-    "vaadin-combo-box": "^2.0.0",
+    "vaadin-grid": "^4.0.1",
+    "vaadin-combo-box": "^3.0.0",
     "vaadin-button": "^1.0.0",
     "vaadin-form-layout": "^1.0.4",
     "vaadin-text-field": "^1.1.0",
     "vaadin-valo-theme": "master",
     "vaadin-pouchdb": "master",
-    "vaadin-date-picker": "^2.0.7"
+    "vaadin-date-picker": "^2.0.7",
+    "vaadin-dropdown-menu": "^1.0.0-alpha2",
+    "vaadin-list-box": "^1.0.0-alpha3"
   },
   "resolutions": {
     "vaadin-text-field": "^1.1.0",
-    "vaadin-overlay": "^1.5.0"
+    "vaadin-overlay": "^1.4.1"
   }
 }

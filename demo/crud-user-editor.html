@@ -5,7 +5,11 @@
 <link rel="import" href="../../vaadin-form-layout/vaadin-form-layout.html">
 <link rel="import" href="../../vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../../vaadin-dropdown-menu/vaadin-dropdown-menu.html">
+<link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
+<link rel="import" href="../../vaadin-item/vaadin-item.html">
 <link rel="import" href="../../crud-view/crud-item-mixin.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 
 <dom-module id="crud-user-editor">
   <template>
@@ -17,10 +21,6 @@
         padding: 0 10px;
         box-sizing: border-box;
         max-width: 800px;
-      }
-      .buttons {
-        display: flex;
-        padding: 5px 0;
       }
       .fit {
         flex: 1;
@@ -40,13 +40,6 @@
       <vaadin-combo-box label="Role" value="{{item.role}}" items='["admin", "operator", "user"]' required></vaadin-combo-box>
       <vaadin-date-picker label="Birthday" value="{{item.birthday}}"></vaadin-date-picker>
     </vaadin-form-layout>
-
-    <div class="buttons">
-      <vaadin-button on-click="save" disabled="[[!dirty]]" theme="raised primary">Save</vaadin-button>
-      <vaadin-button on-click="cancel" theme="raised">Cancel</vaadin-button>
-      <span class="fit"></span>
-      <vaadin-button on-click="delete" disabled="[[isNew]]" theme="raised danger">Delete</vaadin-button>
-    </div>
   </template>
 
   <script>
@@ -55,7 +48,6 @@
         return 'crud-user-editor';
       }
     }
-
     window.customElements.define(CrudUserEditor.is, CrudUserEditor);
   </script>
 </dom-module>

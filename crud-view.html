@@ -33,12 +33,29 @@
       <slot name="grid"></slot>
     </div>
 
-    <div class="editor-wrapper">
-      <vaadin-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]]>
-      </vaadin-dialog>
-      <vaadin-confirm-dialog id="confirm">
-      </vaadin-confirm-dialog>
-    </div>
+    <template id="buttons">
+      <style>
+        .buttons {
+          display: flex;
+          padding: 5px 0;
+        }
+        .fit {
+          flex: 1;
+          overflow: auto;
+        }
+      </style>
+
+      <div class="buttons">
+        <vaadin-button on-click="save" disabled="[[!dirty]]" theme="raised primary">Save</vaadin-button>
+        <vaadin-button on-click="cancel" theme="raised">Cancel</vaadin-button>
+        <span class="fit"></span>
+        <vaadin-button on-click="delete" disabled="[[isNew]]" theme="raised danger">Delete</vaadin-button>
+      </div>
+    </template>
+
+    <vaadin-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] position="right"></vaadin-dialog>
+    <vaadin-confirm-dialog id="confirm"></vaadin-confirm-dialog>
+
   </template>
 
   <script>
@@ -85,38 +102,67 @@
           }
         };
       }
+
       static get is() {
         return 'crud-view';
       }
 
-      get _host() {
-        return this.getRootNode().host;
-      }
-
-      ready() {
-        super.ready();
-        this._template = this.querySelector('.editor')
-        this.$.dialog.appendChild(this._template);
+      _createInstance(ctx, tpl) {
+        var instance;
+        const Templatizer = Polymer.Templatize.templatize(tpl, ctx, {
+          instanceProps: {
+            detail: true,
+            target: true
+          },
+          forwardHostProp: function(prop, value) {
+            if (instance) {
+              instance.forwardHostProp(prop, value);
+            }
+          }
+        });
+        instance = new Templatizer({});
+        return instance;
       }
 
       _updateVars() {
-        this.dirty = this._editor.dirty;
+        this.dirty = this._list._editor.dirty;
         this._noClose = this.dirty || this.$.confirm.opened;
       }
 
+      save(e) {
+        this._list._editor.save(e);
+      }
+
+      cancel(e) {
+        this._list._editor.cancel(e);
+      }
+
+      delete(e) {
+        this._list._editor.delete(e);
+      }
+
       _itemChanged(item) {
-        this.$.dialog.opened = !!item;
-        if (this._template && !this._editor) {
-          this._editor = Array.from(this.$.dialog.$.overlay.shadowRoot.querySelectorAll('*')).filter(e => e._hasCrudItemtMixin)[0];
-          if (this._editor) {
-            this._editor.addEventListener('dirty-changed', () => this._updateVars());
-            this.$.confirm.addEventListener('opened-changed', () => this._updateVars());
-            this._editor._dialog = this.$.confirm;
+        if (!this._tpl) {
+          this._tpl = this.querySelector('.editor');
+          if (this._tpl) {
+            // hack so as dialog does not create it's template
+            this.$.dialog._instance = true;
+            this.$.dialog.$.overlay.content = this._createInstance(this, this._tpl).root;
             this._list = this.getRootNode().host;
-            if (this._list._hasListItemtMixin) {
-              this._list._editor = this._editor;
-            }
+            this._list._editor = Array.from(this.$.dialog.$.overlay.shadowRoot.querySelectorAll('*')).filter(e => e._hasCrudItemtMixin)[0];
+            this._list._editor._dialog = this.$.confirm;
+
+            this.$.dialog.$.overlay.content = this._createInstance(this._list._editor, this.$.buttons).root;
+
+            this._list._editor.addEventListener('dirty-changed', () => this._updateVars());
+            this.$.confirm.addEventListener('opened-changed', () => this._updateVars());
           }
+        }
+
+        if (item) {
+          this.$.dialog.opened = true;
+        } else {
+          setTimeout(() => this.$.dialog.opened = false, 50);
         }
       }
     }
