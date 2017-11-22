@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="dialog/vaadin-confirm-dialog.html">
 <link rel="import" href="../vaadin-dialog/vaadin-dialog.html">
+<link rel="import" href="../vaadin-helpers/vaadin-confirm-dialog.html">
 
 <dom-module id="crud-view">
   <template>
@@ -70,8 +70,8 @@
      * , and for one template:
      *  - The `template` must be classed as `editor` and wraps the element for entity
      *    modifications.
-     *    The editor is shown in a modal dialog that is opened the `item` property
-     *    property is set. It imports and uses the `vaadin-dialog` element.
+     *    The editor is shown in a modal dialog that is opened when the `item` property
+     *    is set.
      *
      * __Note__: that the template content is teleported to the body because
      * so do the the `vaadin-dialog`, hence be aware when styling the content.
@@ -91,6 +91,9 @@
      *   </template>
      * </crud-view>
      * ```
+     *
+     * @demo demo/advanced-demo.html
+     * @demo demo/basic-demo.html
      */
     class CrudView extends (class extends Polymer.Element {}) {
       static get properties() {

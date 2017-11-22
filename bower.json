@@ -22,13 +22,14 @@
     "polymer": "^2.0.0",
     "vaadin-overlay": "changes_for_crud",
     "vaadin-dialog": "changes_for_crud",
-    "vaadin-notification": "master"
+    "vaadin-notification": "master",
+    "vaadin-grid": "^4.0.1",
+    "vaadin-form-layout": "^1.0.4",
+    "vaadin-helpers": "manolo/vaadin-helpers"
   },
   "devDependencies": {
-    "vaadin-grid": "^4.0.1",
     "vaadin-combo-box": "^3.0.0",
     "vaadin-button": "^1.0.0",
-    "vaadin-form-layout": "^1.0.4",
     "vaadin-text-field": "^1.1.0",
     "vaadin-valo-theme": "master",
     "vaadin-pouchdb": "master",
