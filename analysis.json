@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "Helper element for CRUD views.\n\nYou have to provide content for two slots:\n - The `header` slot is normally for the filtering input and the new button.\n - The `grid` slot wraps a list element (normally a vaadin-grid) which needs\n   to extend the `CrudListMixin`.\n\n, and for one template:\n - The `template` must be classed as `editor` and wraps the element for entity\n   modifications.\n   The editor is shown in a modal dialog that is opened the `item` property\n   property is set. It imports and uses the `vaadin-dialog` element.\n\n__Note__: that the template content is teleported to the body because\nso do the the `vaadin-dialog`, hence be aware when styling the content.\n\n### Demo code\n```\n<crud-view editing=\"[[editing]]\" on-close=\"close\">\n  <input value=\"{{search::input}}\" slot=\"header\"></input>\n  <button slot=\"header\" on-click=\"new\">New Item</button>\n  <vaadin-grid slot=\"grid\" items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n    ...\n  </vaadin-grid>\n\n  <template cllass=\"editor\">\n    <my-editor id=\"editor\" slot=\"editor\" item=\"[[item]]\"\n      on-save=\"save\" on-delete=\"delete\" on-close=\"close\"><my-editor>\n  </template>\n</crud-view>\n```",
+      "description": "Helper element for CRUD views.\n\nYou have to provide content for two slots:\n - The `header` slot is normally for the filtering input and the new button.\n - The `grid` slot wraps a list element (normally a vaadin-grid) which needs\n   to extend the `CrudListMixin`.\n\n, and for one template:\n - The `template` must be classed as `editor` and wraps the element for entity\n   modifications.\n   The editor is shown in a modal dialog that is opened when the `item` property\n   is set.\n\n__Note__: that the template content is teleported to the body because\nso do the the `vaadin-dialog`, hence be aware when styling the content.\n\n### Demo code\n```\n<crud-view editing=\"[[editing]]\" on-close=\"close\">\n  <input value=\"{{search::input}}\" slot=\"header\"></input>\n  <button slot=\"header\" on-click=\"new\">New Item</button>\n  <vaadin-grid slot=\"grid\" items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n    ...\n  </vaadin-grid>\n\n  <template cllass=\"editor\">\n    <my-editor id=\"editor\" slot=\"editor\" item=\"[[item]]\"\n      on-save=\"save\" on-delete=\"delete\" on-close=\"close\"><my-editor>\n  </template>\n</crud-view>\n```",
       "summary": "",
       "path": "crud-view.html",
       "properties": [
@@ -158,7 +158,7 @@
       "staticMethods": [],
       "demos": [
         {
-          "url": "demo/advanced-demo.html",
+          "url": "[A](demo/advanced-demo.html)",
           "description": ""
         },
         {
@@ -1086,7 +1086,7 @@
   ],
   "classes": [
     {
-      "description": "Helper element for CRUD views.\n\nYou have to provide content for two slots:\n - The `header` slot is normally for the filtering input and the new button.\n - The `grid` slot wraps a list element (normally a vaadin-grid) which needs\n   to extend the `CrudListMixin`.\n\n, and for one template:\n - The `template` must be classed as `editor` and wraps the element for entity\n   modifications.\n   The editor is shown in a modal dialog that is opened the `item` property\n   property is set. It imports and uses the `vaadin-dialog` element.\n\n__Note__: that the template content is teleported to the body because\nso do the the `vaadin-dialog`, hence be aware when styling the content.\n\n### Demo code\n```\n<crud-view editing=\"[[editing]]\" on-close=\"close\">\n  <input value=\"{{search::input}}\" slot=\"header\"></input>\n  <button slot=\"header\" on-click=\"new\">New Item</button>\n  <vaadin-grid slot=\"grid\" items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n    ...\n  </vaadin-grid>\n\n  <template cllass=\"editor\">\n    <my-editor id=\"editor\" slot=\"editor\" item=\"[[item]]\"\n      on-save=\"save\" on-delete=\"delete\" on-close=\"close\"><my-editor>\n  </template>\n</crud-view>\n```",
+      "description": "Helper element for CRUD views.\n\nYou have to provide content for two slots:\n - The `header` slot is normally for the filtering input and the new button.\n - The `grid` slot wraps a list element (normally a vaadin-grid) which needs\n   to extend the `CrudListMixin`.\n\n, and for one template:\n - The `template` must be classed as `editor` and wraps the element for entity\n   modifications.\n   The editor is shown in a modal dialog that is opened when the `item` property\n   is set.\n\n__Note__: that the template content is teleported to the body because\nso do the the `vaadin-dialog`, hence be aware when styling the content.\n\n### Demo code\n```\n<crud-view editing=\"[[editing]]\" on-close=\"close\">\n  <input value=\"{{search::input}}\" slot=\"header\"></input>\n  <button slot=\"header\" on-click=\"new\">New Item</button>\n  <vaadin-grid slot=\"grid\" items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n    ...\n  </vaadin-grid>\n\n  <template cllass=\"editor\">\n    <my-editor id=\"editor\" slot=\"editor\" item=\"[[item]]\"\n      on-save=\"save\" on-delete=\"delete\" on-close=\"close\"><my-editor>\n  </template>\n</crud-view>\n```",
       "summary": "",
       "path": "crud-view.html",
       "properties": [
@@ -4401,7 +4401,7 @@
       ],
       "demos": [
         {
-          "url": "demo/advanced-demo.html",
+          "url": "[A](demo/advanced-demo.html)",
           "description": ""
         },
         {
@@ -4409,7 +4409,7 @@
           "description": ""
         },
         {
-          "url": "demo/advanced-demo.html",
+          "url": "[A](demo/advanced-demo.html)",
           "description": ""
         },
         {
