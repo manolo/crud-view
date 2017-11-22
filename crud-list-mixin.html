@@ -6,13 +6,15 @@
    * ```
    * <dom-module id="crud-user-list">
    *   <template>
-   *     <vaadin-grid slot="grid" items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
+   *     <input value="{{search::input}}"></input> <button on-click="new">New Item</button>
+   *     <vaadin-grid id="grid"
+   *       items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
    *       ...
    *     </vaadin-grid>
    *
-   *     <template class="editor">
-   *       <crud-user-editor item="[[item]]" on-save="save" on-delete="delete" on-close="close"></crud-user-editor>
-   *     </crud-view>
+   *     <user-editor id="editor" item="[[item]]"
+   *       on-save="save" on-delete="delete" on-close="close" hidden="[[!item]]">
+   *     </user-editor>
    *   </template>
    *
    *   <script>
@@ -48,20 +50,16 @@
          */
         items: Array,
         /**
-         * The item to edit.
+         * The item to edit, it's defined when editing.
          */
-        item: Object,
+        item: {
+          type: Object,
+          notify: true
+        },
         /**
          * The string used to filter items.
          */
-        search: String,
-        /**
-         * `true` if there is an item selected for edition.
-         */
-        editing: {
-          type: Boolean,
-          notify: true
-        }
+        search: String
       };
     }
 
@@ -71,7 +69,15 @@
     }
 
     get _grid() {
-      return this.__grid || (this.__grid = this.querySelector('[slot="grid"]'));
+      return this.__grid || (this.__grid = this.$.grid || this.querySelector('[slot="grid"]'));
+    }
+
+    get _editor() {
+      return this.__editor || (this.__editor = this.$.editor);
+    }
+
+    set _editor(editor) {
+      this.__editor = editor;
     }
 
     /** @private **/
@@ -94,7 +100,6 @@
         // activeItem is set after clicking on grid elements
         setTimeout(() => {
           this.item = this.activeItem;
-          this.editing = !!this.item;
         });
       }
     }
@@ -110,8 +115,6 @@
       // Need to double assign to reset all editor fields.
       this.item = {};
       this.item = null;
-
-      this.editing = false;
     }
 
     /**

@@ -5,10 +5,12 @@
    * ```
    * <dom-module id="crud-user-editor">
    *   <template>
-   *     <vaadin-form-layout>
-   *       <vaadin-text-field label="First Name" value="{{item.name}}" pattern=".{3,}" required></vaadin-text-field>
+   *     <label>Email: <input value="{{item.email::input}}"></input></label>
+   *     <vaadin-text-field label="First Name" value="{{item.name}}"></vaadin-text-field>
    *       ...
-   *     </vaadin-form-layout>
+   *     <button on-click="save">Save</button>
+   *     <button on-click="cancel">Cancel</button>
+   *     <button on-click="delete">Delete</button>
    *   </template>
    *
    *   <script>
@@ -129,7 +131,11 @@
         this.close();
       }
     }
-
+    
+    /**
+     * Fired when the dialog is closed.
+     * @event close
+     */
     /**
      * Sends up a `close` event. If `force == true` it also unsets the dirty flag.
      */
@@ -139,6 +145,11 @@
       this.dispatchEvent(new CustomEvent('close', {bubbles: true, composed: true}));
     }
 
+    /**
+     * Fired when the user clicks the save button.
+     * @event save
+     * @param {Object} detail the item to be saved.
+     */
     /**
      * First it Checks that all form elements are valid, then it sends up a `save`
      * event with the edited item as the detail.
@@ -152,6 +163,11 @@
       }
     }
 
+    /**
+     * Fired when the user clicks on delete button
+     * @event delete
+     * @param {Object} detail the item to be removed.
+     */
     /**
      * Sends up a `delete` event with the edited item as the detail.
      */

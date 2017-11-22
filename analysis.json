@@ -9,15 +9,15 @@
         {
           "name": "item",
           "type": "Object",
-          "description": "The edited being item.",
+          "description": "The item being edited.\nWhen it is set, the editor dialog is opened.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 103,
+              "line": 104,
               "column": 10
             },
             "end": {
-              "line": 106,
+              "line": 107,
               "column": 11
             }
           },
@@ -35,11 +35,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 115,
+              "line": 116,
               "column": 6
             },
             "end": {
-              "line": 130,
+              "line": 131,
               "column": 7
             }
           },
@@ -59,11 +59,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 133,
+              "line": 134,
               "column": 6
             },
             "end": {
-              "line": 136,
+              "line": 137,
               "column": 7
             }
           },
@@ -76,11 +76,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 139,
+              "line": 140,
               "column": 6
             },
             "end": {
-              "line": 141,
+              "line": 142,
               "column": 7
             }
           },
@@ -97,11 +97,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 144,
+              "line": 145,
               "column": 6
             },
             "end": {
-              "line": 146,
+              "line": 147,
               "column": 7
             }
           },
@@ -118,11 +118,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 149,
+              "line": 150,
               "column": 6
             },
             "end": {
-              "line": 151,
+              "line": 152,
               "column": 7
             }
           },
@@ -139,11 +139,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 154,
+              "line": 155,
               "column": 6
             },
             "end": {
-              "line": 177,
+              "line": 178,
               "column": 7
             }
           },
@@ -173,7 +173,7 @@
           "column": 4
         },
         "end": {
-          "line": 178,
+          "line": 179,
           "column": 5
         }
       },
@@ -183,14 +183,14 @@
       "attributes": [
         {
           "name": "item",
-          "description": "The edited being item.",
+          "description": "The item being edited.\nWhen it is set, the editor dialog is opened.",
           "sourceRange": {
             "start": {
-              "line": 103,
+              "line": 104,
               "column": 10
             },
             "end": {
-              "line": 106,
+              "line": 107,
               "column": 11
             }
           },
@@ -240,7 +240,7 @@
   ],
   "mixins": [
     {
-      "description": "__The Mixin for the entity editor.__\n### Demo code\n```\n<dom-module id=\"crud-user-editor\">\n  <template>\n    <vaadin-form-layout>\n      <vaadin-text-field label=\"First Name\" value=\"{{item.name}}\" pattern=\".{3,}\" required></vaadin-text-field>\n      ...\n    </vaadin-form-layout>\n  </template>\n\n  <script>\n    class CrudUserEditor extends window.CrudItemMixin(Polymer.Element) {\n      static get is() {return 'crud-user-editor'}\n    }\n    window.customElements.define(CrudUserEditor.is, CrudUserEditor);\n  </ script>\n</dom-module>\n```",
+      "description": "__The Mixin for the entity editor.__\n### Demo code\n```\n<dom-module id=\"crud-user-editor\">\n  <template>\n    <label>Email: <input value=\"{{item.email::input}}\"></input></label>\n    <vaadin-text-field label=\"First Name\" value=\"{{item.name}}\"></vaadin-text-field>\n      ...\n    <button on-click=\"save\">Save</button>\n    <button on-click=\"cancel\">Cancel</button>\n    <button on-click=\"delete\">Delete</button>\n  </template>\n\n  <script>\n    class CrudUserEditor extends window.CrudItemMixin(Polymer.Element) {\n      static get is() {return 'crud-user-editor'}\n    }\n    window.customElements.define(CrudUserEditor.is, CrudUserEditor);\n  </ script>\n</dom-module>\n```",
       "summary": "",
       "path": "crud-item-mixin.html",
       "properties": [
@@ -251,11 +251,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 31,
+              "line": 33,
               "column": 8
             },
             "end": {
-              "line": 33,
+              "line": 35,
               "column": 9
             }
           },
@@ -271,11 +271,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 37,
+              "line": 39,
               "column": 8
             },
             "end": {
-              "line": 37,
+              "line": 39,
               "column": 20
             }
           },
@@ -290,11 +290,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 41,
+              "line": 43,
               "column": 8
             },
             "end": {
-              "line": 44,
+              "line": 46,
               "column": 9
             }
           },
@@ -311,11 +311,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 48,
+              "line": 50,
               "column": 8
             },
             "end": {
-              "line": 51,
+              "line": 53,
               "column": 9
             }
           },
@@ -332,11 +332,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 54,
+              "line": 56,
               "column": 8
             },
             "end": {
-              "line": 54,
+              "line": 56,
               "column": 24
             }
           },
@@ -351,11 +351,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 56,
+              "line": 58,
               "column": 8
             },
             "end": {
-              "line": 58,
+              "line": 60,
               "column": 9
             }
           },
@@ -371,11 +371,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 60,
+              "line": 62,
               "column": 8
             },
             "end": {
-              "line": 62,
+              "line": 64,
               "column": 9
             }
           },
@@ -391,11 +391,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 64,
+              "line": 66,
               "column": 8
             },
             "end": {
-              "line": 66,
+              "line": 68,
               "column": 9
             }
           },
@@ -411,11 +411,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 68,
+              "line": 70,
               "column": 8
             },
             "end": {
-              "line": 70,
+              "line": 72,
               "column": 9
             }
           },
@@ -431,11 +431,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 72,
+              "line": 74,
               "column": 8
             },
             "end": {
-              "line": 74,
+              "line": 76,
               "column": 9
             }
           },
@@ -451,11 +451,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 78,
               "column": 8
             },
             "end": {
-              "line": 78,
+              "line": 80,
               "column": 9
             }
           },
@@ -471,11 +471,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 80,
+              "line": 82,
               "column": 8
             },
             "end": {
-              "line": 82,
+              "line": 84,
               "column": 9
             }
           },
@@ -491,11 +491,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 86,
               "column": 8
             },
             "end": {
-              "line": 86,
+              "line": 88,
               "column": 9
             }
           },
@@ -512,11 +512,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 98,
+              "line": 100,
               "column": 4
             },
             "end": {
-              "line": 111,
+              "line": 113,
               "column": 5
             }
           },
@@ -529,11 +529,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 117,
+              "line": 119,
               "column": 5
             }
           },
@@ -546,11 +546,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 125,
               "column": 4
             },
             "end": {
-              "line": 130,
+              "line": 132,
               "column": 5
             }
           },
@@ -563,11 +563,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 135,
+              "line": 141,
               "column": 4
             },
             "end": {
-              "line": 139,
+              "line": 145,
               "column": 5
             }
           },
@@ -584,11 +584,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 156,
               "column": 4
             },
             "end": {
-              "line": 152,
+              "line": 163,
               "column": 5
             }
           },
@@ -601,11 +601,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 157,
+              "line": 173,
               "column": 4
             },
             "end": {
-              "line": 162,
+              "line": 178,
               "column": 5
             }
           },
@@ -618,11 +618,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 181,
               "column": 4
             },
             "end": {
-              "line": 178,
+              "line": 194,
               "column": 5
             }
           },
@@ -651,11 +651,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 2
         },
         "end": {
-          "line": 179,
+          "line": 195,
           "column": 3
         }
       },
@@ -667,11 +667,11 @@
           "description": "The entity being edited.",
           "sourceRange": {
             "start": {
-              "line": 37,
+              "line": 39,
               "column": 8
             },
             "end": {
-              "line": 37,
+              "line": 39,
               "column": 20
             }
           },
@@ -683,11 +683,11 @@
           "description": "`true` when the entity has been modified.",
           "sourceRange": {
             "start": {
-              "line": 41,
+              "line": 43,
               "column": 8
             },
             "end": {
-              "line": 44,
+              "line": 46,
               "column": 9
             }
           },
@@ -699,11 +699,11 @@
           "description": "`true` if it is editing a isNew entity.",
           "sourceRange": {
             "start": {
-              "line": 48,
+              "line": 50,
               "column": 8
             },
             "end": {
-              "line": 51,
+              "line": 53,
               "column": 9
             }
           },
@@ -711,7 +711,26 @@
           "type": "boolean"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "close",
+          "description": "close",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "delete",
+          "description": "delete",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "save",
+          "description": "save",
+          "metadata": {}
+        }
+      ],
       "styling": {
         "cssVariables": [],
         "selectors": []
@@ -719,7 +738,7 @@
       "slots": []
     },
     {
-      "description": "__The Mixin for the entity list. It has all the methods for CRUD operations.__\n### Demo code\n```\n<dom-module id=\"crud-user-list\">\n  <template>\n    <vaadin-grid slot=\"grid\" items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n      ...\n    </vaadin-grid>\n\n    <template class=\"editor\">\n      <crud-user-editor item=\"[[item]]\" on-save=\"save\" on-delete=\"delete\" on-close=\"close\"></crud-user-editor>\n    </crud-view>\n  </template>\n\n  <script>\n    class CrudUserList extends window.CrudListMixin(Polymer.Element) {\n      static get is() {return 'crud-user-list'}\n    }\n    window.customElements.define(CrudUserList.is, CrudUserList);\n  </ script>\n</dom-module>\n```",
+      "description": "__The Mixin for the entity list. It has all the methods for CRUD operations.__\n### Demo code\n```\n<dom-module id=\"crud-user-list\">\n  <template>\n    <input value=\"{{search::input}}\"></input> <button on-click=\"new\">New Item</button>\n    <vaadin-grid id=\"grid\"\n      items=\"[[filter(items, search, items.*)]]\" active-item=\"{{activeItem}}\">\n      ...\n    </vaadin-grid>\n\n    <user-editor id=\"editor\" item=\"[[item]]\"\n      on-save=\"save\" on-delete=\"delete\" on-close=\"close\" hidden=\"[[!item]]\">\n    </user-editor>\n  </template>\n\n  <script>\n    class CrudUserList extends window.CrudListMixin(Polymer.Element) {\n      static get is() {return 'crud-user-list'}\n    }\n    window.customElements.define(CrudUserList.is, CrudUserList);\n  </ script>\n</dom-module>\n```",
       "summary": "",
       "path": "crud-list-mixin.html",
       "properties": [
@@ -730,11 +749,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 34,
+              "line": 36,
               "column": 8
             },
             "end": {
-              "line": 36,
+              "line": 38,
               "column": 9
             }
           },
@@ -750,11 +769,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 41,
+              "line": 43,
               "column": 8
             },
             "end": {
-              "line": 44,
+              "line": 46,
               "column": 9
             }
           },
@@ -771,11 +790,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 48,
+              "line": 50,
               "column": 8
             },
             "end": {
-              "line": 48,
+              "line": 50,
               "column": 20
             }
           },
@@ -786,20 +805,22 @@
         {
           "name": "item",
           "type": "Object",
-          "description": "The item to edit.",
+          "description": "The item to edit, it's defined when editing.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 52,
+              "line": 54,
               "column": 8
             },
             "end": {
-              "line": 52,
-              "column": 20
+              "line": 57,
+              "column": 9
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "notify": true
+            }
           }
         },
         {
@@ -809,37 +830,16 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 56,
+              "line": 61,
               "column": 8
             },
             "end": {
-              "line": 56,
+              "line": 61,
               "column": 22
             }
           },
           "metadata": {
             "polymer": {}
-          }
-        },
-        {
-          "name": "editing",
-          "type": "boolean",
-          "description": "`true` if there is an item selected for edition.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 60,
-              "column": 8
-            },
-            "end": {
-              "line": 63,
-              "column": 9
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
           }
         }
       ],
@@ -850,11 +850,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 77,
+              "line": 83,
               "column": 4
             },
             "end": {
-              "line": 79,
+              "line": 85,
               "column": 5
             }
           },
@@ -867,11 +867,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 88,
+              "line": 94,
               "column": 5
             }
           },
@@ -884,11 +884,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 91,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 99,
+              "line": 104,
               "column": 5
             }
           },
@@ -901,11 +901,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 104,
+              "line": 109,
               "column": 4
             },
             "end": {
-              "line": 114,
+              "line": 117,
               "column": 5
             }
           },
@@ -918,11 +918,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 122,
               "column": 4
             },
             "end": {
-              "line": 126,
+              "line": 129,
               "column": 5
             }
           },
@@ -939,11 +939,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 131,
+              "line": 134,
               "column": 4
             },
             "end": {
-              "line": 134,
+              "line": 137,
               "column": 5
             }
           },
@@ -960,11 +960,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 142,
+              "line": 145,
               "column": 4
             },
             "end": {
-              "line": 151,
+              "line": 154,
               "column": 5
             }
           },
@@ -984,11 +984,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 27,
+          "line": 29,
           "column": 2
         },
         "end": {
-          "line": 152,
+          "line": 155,
           "column": 3
         }
       },
@@ -1000,11 +1000,11 @@
           "description": "The item activated in the list",
           "sourceRange": {
             "start": {
-              "line": 41,
+              "line": 43,
               "column": 8
             },
             "end": {
-              "line": 44,
+              "line": 46,
               "column": 9
             }
           },
@@ -1016,11 +1016,11 @@
           "description": "The list of entities.",
           "sourceRange": {
             "start": {
-              "line": 48,
+              "line": 50,
               "column": 8
             },
             "end": {
-              "line": 48,
+              "line": 50,
               "column": 20
             }
           },
@@ -1029,15 +1029,15 @@
         },
         {
           "name": "item",
-          "description": "The item to edit.",
+          "description": "The item to edit, it's defined when editing.",
           "sourceRange": {
             "start": {
-              "line": 52,
+              "line": 54,
               "column": 8
             },
             "end": {
-              "line": 52,
-              "column": 20
+              "line": 57,
+              "column": 9
             }
           },
           "metadata": {},
@@ -1048,32 +1048,16 @@
           "description": "The string used to filter items.",
           "sourceRange": {
             "start": {
-              "line": 56,
+              "line": 61,
               "column": 8
             },
             "end": {
-              "line": 56,
+              "line": 61,
               "column": 22
             }
           },
           "metadata": {},
           "type": "string"
-        },
-        {
-          "name": "editing",
-          "description": "`true` if there is an item selected for edition.",
-          "sourceRange": {
-            "start": {
-              "line": 60,
-              "column": 8
-            },
-            "end": {
-              "line": 63,
-              "column": 9
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
         }
       ],
       "events": [],
