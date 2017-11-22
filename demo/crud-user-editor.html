@@ -9,27 +9,18 @@
 <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
 <link rel="import" href="../../vaadin-item/vaadin-item.html">
 <link rel="import" href="../../crud-view/crud-item-mixin.html">
-<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 
 <dom-module id="crud-user-editor">
   <template>
     <style>
       :host {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        padding: 0 10px;
-        box-sizing: border-box;
-        max-width: 800px;
-      }
-      .fit {
         flex: 1;
-        overflow: auto;
+        padding: 0 10px;
       }
     </style>
 
     <h3>User Editor</h3>
-    <vaadin-form-layout class="fit">
+    <vaadin-form-layout>
       <vaadin-text-field label="Email (login)" value="{{item.email}}" colspan="2" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></vaadin-text-field>
       <br>
       <vaadin-password-field label="Password" value="{{item.password}}" colspan="2" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"></vaadin-password-field>
@@ -37,8 +28,8 @@
       <vaadin-text-field label="First Name" value="{{item.name}}" pattern=".{3,}" required></vaadin-text-field>
       <vaadin-text-field label="Last Name" value="{{item.last}}"></vaadin-text-field>
       <br>
-      <vaadin-combo-box label="Role" value="{{item.role}}" items='["admin", "operator", "user"]' required></vaadin-combo-box>
       <vaadin-date-picker label="Birthday" value="{{item.birthday}}"></vaadin-date-picker>
+      <vaadin-combo-box label="Role" value="{{item.role}}" items='["admin", "operator", "user"]' required></vaadin-combo-box>
     </vaadin-form-layout>
   </template>
 
