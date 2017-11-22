@@ -62,39 +62,41 @@
     /**
      * Helper element for CRUD views.
      *
-     * It has 2 slots:
+     * You have to provide content for two slots:
      *  - The `header` slot is normally for the filtering input and the new button.
      *  - The `grid` slot wraps a list element (normally a vaadin-grid) which needs
      *    to extend the `CrudListMixin`.
      *
-     * It also needs a template:
-     *  - The `template` classed as `class="ecitor"` wraps an element for entity
-     *    modification that needs to extend the `CrudItemdMixin`.
-     *    The editor is shown in a modal dialog that is opened when the `editing`
-     *    property is set to true. It imports and uses the `vaadin-dialog` element.
-     *    Note that the template content is teleported to the body by the `vaadin-dialog`
-     *    hence you need to take care when styling the content.
+     * , and for one template:
+     *  - The `template` must be classed as `editor` and wraps the element for entity
+     *    modifications.
+     *    The editor is shown in a modal dialog that is opened the `item` property
+     *    property is set. It imports and uses the `vaadin-dialog` element.
      *
+     * __Note__: that the template content is teleported to the body because
+     * so do the the `vaadin-dialog`, hence be aware when styling the content.
+     *
+     * ### Demo code
      * ```
      * <crud-view editing="[[editing]]" on-close="close">
      *   <input value="{{search::input}}" slot="header"></input>
      *   <button slot="header" on-click="new">New Item</button>
-     *   <vaadin-grid id="grid" slot="grid"
-     *     items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
+     *   <vaadin-grid slot="grid" items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
      *     ...
      *   </vaadin-grid>
      *
-     *   <my-editor id="editor" slot="editor" item="[[item]]"
-     *     on-save="save" on-delete="delete" on-close="close"><my-editor>
-     *
+     *   <template cllass="editor">
+     *     <my-editor id="editor" slot="editor" item="[[item]]"
+     *       on-save="save" on-delete="delete" on-close="close"><my-editor>
+     *   </template>
      * </crud-view>
      * ```
      */
-    class CrudView extends Polymer.Element {
+    class CrudView extends (class extends Polymer.Element {}) {
       static get properties() {
         return {
           /**
-           * The edited item.
+           * The edited being item.
            */
           item: {
             type: Object,
@@ -107,6 +109,7 @@
         return 'crud-view';
       }
 
+      /** @private */
       _createInstance(ctx, tpl) {
         var instance;
         const Templatizer = Polymer.Templatize.templatize(tpl, ctx, {
@@ -124,23 +127,28 @@
         return instance;
       }
 
+      /** @private */
       _updateVars() {
         this.dirty = this._list._editor.dirty;
         this._noClose = this.dirty || this.$.confirm.opened;
       }
 
+      /** @private */
       save(e) {
         this._list._editor.save(e);
       }
 
+      /** @private */
       cancel(e) {
         this._list._editor.cancel(e);
       }
 
+      /** @private */
       delete(e) {
         this._list._editor.delete(e);
       }
 
+      /** @private */
       _itemChanged(item) {
         if (!this._tpl) {
           this._tpl = this.querySelector('.editor');

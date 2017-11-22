@@ -1,8 +1,28 @@
 
 <script>
   /**
-   * Mixin for the entity list. It has all the methods for CRUD operations.
+   * __The Mixin for the entity list. It has all the methods for CRUD operations.__
+   * ### Demo code
+   * ```
+   * <dom-module id="crud-user-list">
+   *   <template>
+   *     <vaadin-grid slot="grid" items="[[filter(items, search, items.*)]]" active-item="{{activeItem}}">
+   *       ...
+   *     </vaadin-grid>
    *
+   *     <template class="editor">
+   *       <crud-user-editor item="[[item]]" on-save="save" on-delete="delete" on-close="close"></crud-user-editor>
+   *     </crud-view>
+   *   </template>
+   *
+   *   <script>
+   *     class CrudUserList extends window.CrudListMixin(Polymer.Element) {
+   *       static get is() {return 'crud-user-list'}
+   *     }
+   *     window.customElements.define(CrudUserList.is, CrudUserList);
+   *   </ script>
+   * </dom-module>
+   * ```
    * @polymerMixin
    */
   window.CrudListMixin = subclass => class extends subclass {
@@ -10,6 +30,7 @@
       return {
         /**
          * Used for mixin detection because `instanceof` does not work with mixins.
+         * @private
          */
         _hasCrudListtMixin: {
           value: true
@@ -49,6 +70,11 @@
       return this._editor && this._editor.dirty || false;
     }
 
+    get _grid() {
+      return this.__grid || (this.__grid = this.querySelector('[slot="grid"]'));
+    }
+
+    /** @private **/
     _onActiveItem() {
       this._editItem();
     }
@@ -62,6 +88,7 @@
       }
     }
 
+    /** @private **/
     _editItem() {
       if (!this.dirty) {
         // activeItem is set after clicking on grid elements
@@ -76,9 +103,9 @@
      * Unselects the edited item and closes the editor.
      */
     close() {
-      if (this.$.grid) {
-        this.$.grid.selectedItems = [];
-        this.$.grid.activeItem = null;
+      if (this._grid) {
+        this._grid.selectedItems = [];
+        this._grid.activeItem = null;
       }
       // Need to double assign to reset all editor fields.
       this.item = {};

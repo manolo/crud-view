@@ -1,9 +1,24 @@
 <script>
   /**
-   * CRUD Mixin for the entity editor.
+   * __The Mixin for the entity editor.__
+   * ### Demo code
+   * ```
+   * <dom-module id="crud-user-editor">
+   *   <template>
+   *     <vaadin-form-layout>
+   *       <vaadin-text-field label="First Name" value="{{item.name}}" pattern=".{3,}" required></vaadin-text-field>
+   *       ...
+   *     </vaadin-form-layout>
+   *   </template>
    *
-   * When available, it uses a `vaadin-confirm-dialog`, otherwise it
-   * downgrades to `window.confirm`.
+   *   <script>
+   *     class CrudUserEditor extends window.CrudItemMixin(Polymer.Element) {
+   *       static get is() {return 'crud-user-editor'}
+   *     }
+   *     window.customElements.define(CrudUserEditor.is, CrudUserEditor);
+   *   &lt;/script>
+   * </dom-module>
+   * ```
    *
    * @polymerMixin
    */
@@ -12,6 +27,7 @@
       return {
         /**
          * Used for mixin detection because `instanceof` does not work with mixins.
+         * @private
          */
         _hasCrudItemtMixin: {
           value: true
@@ -79,6 +95,7 @@
       ];
     }
 
+    /** @private */
     _onItemChanged() {
       if (!this._itemLock) {
         this.dirty = false;
@@ -94,6 +111,7 @@
       }
     }
 
+    /** @private */
     _checkDirty() {
       this.dirty = this.item && Object.keys(this.item).length > 0
         && JSON.stringify(this.item) != this._originalItemString;
@@ -144,6 +162,7 @@
       }, this.deleteCaption, this.deleteMessage, this.deleteOkText, this.deleteCancelText);
     }
 
+    /** @private */
     _confirm(callback, caption, message, okText, cancelText) {
       if (this._dialog) { // vaadin-confirm-dialog is imported
         this._dialog.callback = callback;
