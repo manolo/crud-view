@@ -1,12 +1,12 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../vaadin-dialog/vaadin-dialog.html">
-<link rel="import" href="../vaadin-helpers/vaadin-confirm-dialog.html">
+<link rel="import" href="../starter-elements/starter-dialog.html">
+<link rel="import" href="../starter-elements/starter-confirm-dialog.html">
 
 <dom-module id="crud-view">
   <template>
     <style>
       :host {
-        position: absolute;
         height: 100%;
         width: 100%;
         display: flex;
@@ -49,12 +49,12 @@
         <vaadin-button on-click="save" disabled="[[!dirty]]" theme="raised primary">Save</vaadin-button>
         <vaadin-button on-click="cancel" theme="raised">Cancel</vaadin-button>
         <span class="fit"></span>
-        <vaadin-button on-click="delete" disabled="[[isNew]]" theme="raised danger">Delete</vaadin-button>
+        <vaadin-button on-click="delete" disabled="[[isNew]]" theme="raised tertiary error">Delete</vaadin-button>
       </div>
     </template>
 
-    <vaadin-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right"></vaadin-dialog>
-    <vaadin-confirm-dialog id="confirm"></vaadin-confirm-dialog>
+    <starter-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right"></starter-dialog>
+    <starter-confirm-dialog id="confirm"></starter-confirm-dialog>
 
   </template>
 

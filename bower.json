@@ -20,15 +20,14 @@
   ],
   "dependencies": {
     "polymer": "^2.0.0",
-    "vaadin-overlay": "changes_for_crud",
-    "vaadin-dialog": "changes_for_crud",
-    "vaadin-notification": "master",
-    "vaadin-grid": "^4.0.1",
-    "vaadin-form-layout": "^1.0.4",
-    "vaadin-helpers": "manolo/vaadin-helpers",
-    "vaadin-dropdown-menu": "master"
+    "vaadin-dialog": "^1.0.0",
+    "starter-elements": "vaadin/starter-elements"
   },
   "devDependencies": {
+    "vaadin-grid": "^4.0.1",
+    "vaadin-overlay": "^1.6.0",
+    "vaadin-form-layout": "^1.0.4",
+    "vaadin-notification": "^1.0.0",
     "vaadin-combo-box": "^3.0.0",
     "vaadin-button": "^1.0.0",
     "vaadin-text-field": "^1.1.0",
@@ -36,14 +35,13 @@
     "vaadin-material-theme": "master",
     "vaadin-pouchdb": "master",
     "vaadin-date-picker": "^2.0.7",
-    "vaadin-dropdown-menu": "^1.0.0-alpha2",
-    "vaadin-list-box": "^1.0.0-alpha3",
+    "vaadin-dropdown-menu": "^1.0.0",
+    "vaadin-list-box": "^1.0.0",
     "iron-ajax": "^2.0.6",
     "iron-component-page": "^3.0.1"
   },
   "resolutions": {
     "vaadin-text-field": "^1.1.0",
-    "vaadin-overlay": "changes_for_crud",
     "vaadin-list-box": "master",
     "vaadin-dropdown-menu": "master"
   }
