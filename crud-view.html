@@ -53,7 +53,7 @@
       </div>
     </template>
 
-    <starter-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right"></starter-dialog>
+    <starter-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right" on-opened-changed="_onOpened"></starter-dialog>
     <starter-confirm-dialog id="confirm"></starter-confirm-dialog>
 
   </template>
@@ -152,8 +152,20 @@
         this._list._editor.delete(e);
       }
 
+      _onOpened() {
+        if (this._list && !this.$.dialog.opened) {
+          this._closing = true;
+          this._list.close();
+          this._closing = undefined;
+        }
+      }
+
       /** @private */
       _itemChanged(item) {
+        if (this._closing) {
+          return;
+        }
+
         if (!this._tpl) {
           this._tpl = this.querySelector('.editor');
           if (this._tpl) {
