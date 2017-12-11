@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../vaadin-dialog/vaadin-dialog.html">
 <link rel="import" href="../starter-elements/starter-dialog.html">
+<link rel="import" href="../starter-elements/starter-buttons-bar.html">
 <link rel="import" href="../starter-elements/starter-confirm-dialog.html">
 
 <dom-module id="crud-view">
@@ -33,6 +34,14 @@
       <slot name="grid"></slot>
     </div>
 
+    <!-- <starter-buttons-bar
+      on-action1="save" action1-text="Save"
+      on-action2="save" action2-text="Cancel"
+      on-action3="save" action3-text="Delete"
+    ></starter-buttons-bar> -->
+
+
+
     <template id="buttons">
       <style>
         .buttons {
@@ -45,11 +54,13 @@
         }
       </style>
 
+
       <div class="buttons">
-        <vaadin-button on-click="save" disabled="[[!dirty]]" theme="raised primary">Save</vaadin-button>
-        <vaadin-button on-click="cancel" theme="raised">Cancel</vaadin-button>
-        <span class="fit"></span>
-        <vaadin-button on-click="delete" disabled="[[isNew]]" theme="raised tertiary error">Delete</vaadin-button>
+        <starter-buttons-bar
+          on-action1="save" action1-text="Save" action1-disabled="[[!dirty]]"
+          on-action2="save" action2-text="Cancel"
+          on-action3="save" action3-text="Delete" action3-disabled="[[isNew]]"
+        ></starter-buttons-bar>
       </div>
     </template>
 
