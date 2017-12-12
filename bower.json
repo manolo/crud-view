@@ -21,7 +21,7 @@
   "dependencies": {
     "polymer": "^2.0.0",
     "vaadin-dialog": "^1.0.0",
-    "starter-elements": "vaadin/starter-elements#^0.0.3"
+    "starter-elements": "vaadin/starter-elements#^0.0.5"
   },
   "devDependencies": {
     "vaadin-grid": "^4.0.1",
