@@ -1,0 +1,68 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-button/vaadin-button.html">
+
+<dom-module id="crud-buttons-bar">
+  <template>
+    <style>
+      :host {
+        margin-top: 30px;
+        display: flex;
+        min-width: 100%;
+      }
+    </style>
+    <vaadin-button id="action1" on-click="_action1" theme="raised primary" disabled="[[action1Disabled]]">[[action1Text]]</vaadin-button>
+    <vaadin-button id="action2" on-click="_action2" theme="raised" disabled="[[action2Disabled]]">[[action2Text]]</vaadin-button>
+    <div style="flex: 1"></div>
+    <vaadin-button id="action3" on-click="_action3" theme="raised tertiary error" disabled="[[action3Disabled]]">[[action3Text]]</vaadin-button>
+  </template>
+
+  <script>
+    {
+      class ButtonsBarElement extends Polymer.Element {
+        static get is() {
+          return 'crud-buttons-bar';
+        }
+
+        static get properties() {
+          return {
+            action1Text: {
+              type: String
+            },
+            action2Text: {
+              type: String
+            },
+            action3Text: {
+              type: String
+            },
+            action1Disabled: {
+              type: Boolean
+            },
+            action2Disabled: {
+              type: Boolean
+            },
+            action3Disabled: {
+              type: Boolean
+            },
+          };
+        }
+
+        /** @event action1 */
+        _action1() {
+          this.dispatchEvent(new CustomEvent('action1'));
+        }
+
+        /** @event action2 */
+        _action2() {
+          this.dispatchEvent(new CustomEvent('action2'));
+        }
+
+        /** @event action3 */
+        _action3() {
+          this.dispatchEvent(new CustomEvent('action3'));
+        }
+      }
+
+      window.customElements.define(ButtonsBarElement.is, ButtonsBarElement);
+    }
+  </script>
+</dom-module>

@@ -1,8 +1,8 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../vaadin-dialog/vaadin-dialog.html">
-<link rel="import" href="../starter-elements/starter-dialog.html">
-<link rel="import" href="../starter-elements/starter-buttons-bar.html">
-<link rel="import" href="../starter-elements/starter-confirm-dialog.html">
+<link rel="import" href="elements/crud-dialog.html">
+<link rel="import" href="elements/crud-buttons-bar.html">
+<link rel="import" href="elements/crud-confirm-dialog.html">
 
 <dom-module id="crud-view">
   <template>
@@ -34,11 +34,11 @@
       <slot name="grid"></slot>
     </div>
 
-    <!-- <starter-buttons-bar
+    <!-- <crud-buttons-bar
       on-action1="save" action1-text="Save"
       on-action2="save" action2-text="Cancel"
       on-action3="save" action3-text="Delete"
-    ></starter-buttons-bar> -->
+    ></crud-buttons-bar> -->
 
 
 
@@ -56,16 +56,16 @@
 
 
       <div class="buttons">
-        <starter-buttons-bar
+        <crud-buttons-bar
           on-action1="save" action1-text="Save" action1-disabled="[[!dirty]]"
-          on-action2="save" action2-text="Cancel"
-          on-action3="save" action3-text="Delete" action3-disabled="[[isNew]]"
-        ></starter-buttons-bar>
+          on-action2="cancel" action2-text="Cancel"
+          on-action3="delete" action3-text="Delete" action3-disabled="[[isNew]]"
+        ></crud-buttons-bar>
       </div>
     </template>
 
-    <starter-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right" on-opened-changed="_onOpened"></starter-dialog>
-    <starter-confirm-dialog id="confirm"></starter-confirm-dialog>
+    <crud-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right" on-opened-changed="_onOpened"></crud-dialog>
+    <crud-confirm-dialog id="confirm"></crud-confirm-dialog>
 
   </template>
 

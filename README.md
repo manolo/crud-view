@@ -15,6 +15,11 @@
 - `CrudItemMixin`: ES6 class for the entity editor.
 - `<crud-view>`: Helper element to enable dialogs.
 
+## elements
+- `<crud-buttons-bar>`: A reusable bar with 3 buttons for crud editor
+- `<crud-dialog>`: A wrapper for `vaadin-dialog` providing adding content in light-dom
+- `<crud-confirm-dialog>`: A confirmation element made on top of `vaadin-dialog`
+
 ## License
 
 Apache License 2.0
