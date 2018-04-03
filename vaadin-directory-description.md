@@ -11,7 +11,7 @@
 
 `my-list.html`
 
-```
+```html
 ...
 <dom-module id="ny-list">
   <template>
@@ -54,7 +54,7 @@
 ```
 
 `my-editor.html`
-```
+```html
 ...
 <dom-module id="my-editor">
   <template>
