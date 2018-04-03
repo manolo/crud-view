@@ -1,8 +1,13 @@
 
 # &lt;crud-view&gt;
 
+![version](https://img.shields.io/vaadin-directory/v/manolocrud-view.svg)
+
 
 &lt;crud-view&gt; is a [Polymer 2](http://polymer-project.org) Element and a couple of Mixins providing an easy way to display, sort, filter and make modifications to a list of JSON objects.
+
+![Screenshot of crud-view](https://raw.githubusercontent.com/manolo/crud-view/master/screenshot.gif)
+
 
 ### Demo
 
