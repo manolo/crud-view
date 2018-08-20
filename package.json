@@ -1,0 +1,15 @@
+{
+  "name": "@manolo/crud-view",
+  "version": "1.0.3",
+  "description": "crud-view",
+  "main": "crud-view.html",
+  "repository": "manolo/crud-view",
+  "keywords": [
+    "crud-view",
+    "web-components",
+    "web-component",
+    "polymer"
+  ],
+  "author": "Manuel Carrasco Moñino",
+  "license": "Apache-2.0"
+}
