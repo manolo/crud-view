@@ -28,9 +28,9 @@
         <p id="caption">[[caption]]</p>
         <p id="message">[[message]]</p>
         <div id="buttons">
-          <vaadin-button on-click="_ok" theme="raised tertiary error">[[okText]]</vaadin-button>
+          <vaadin-button on-click="__ok" theme="raised tertiary error">[[okText]]</vaadin-button>
           <div style="flex: 1"></div>
-          <vaadin-button on-click="_cancel" theme="raised tertiary" class="right">[[cancelText]]</vaadin-button>
+          <vaadin-button on-click="__cancel" theme="raised tertiary" class="right">[[cancelText]]</vaadin-button>
         </div>
       </template>
     </vaadin-dialog>
@@ -75,17 +75,17 @@
           // We need to unify opened-changed and cancel-event in one, because removing from UI in
           // server side, implies events after removal not being executed, and opened-changes is always
           // fired before cancel-click
-          this.$.dialog.$.overlay.addEventListener('vaadin-overlay-outside-click', () => this._cancel());
-          this.$.dialog.$.overlay.addEventListener('vaadin-overlay-escape-press', () => this._cancel());
+          this.$.dialog.$.overlay.addEventListener('vaadin-overlay-outside-click', () => this.__cancel());
+          this.$.dialog.$.overlay.addEventListener('vaadin-overlay-escape-press', () => this.__cancel());
         }
 
-        _cancel() {
+        __cancel() {
           delete this.callback;
           this.dispatchEvent(new CustomEvent('cancel-click'));
           this.opened = false;
         }
 
-        _ok() {
+        __ok() {
           if (this.callback) {
             this.callback();
             delete this.callback;

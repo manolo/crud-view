@@ -57,7 +57,7 @@
 <dom-module id="crud-dialog">
   <script>
     {
-      class DialogElement extends Vaadin.VaadinDialog {
+      class DialogElement extends Vaadin.DialogElement {
         static get is() {
           return 'crud-dialog';
         }
@@ -76,9 +76,7 @@
           this._observer = new Polymer.FlattenedNodesObserver(this, info => {
             const elements = info.addedNodes.filter(e => e.localName != 'template');
             if (elements.length) {
-              // Insert ligth-dom content in the overlay
-              this.$.overlay.$.content.innerHTML = '';
-              elements.forEach(e => this.$.overlay.$.content.appendChild(e));
+              elements.forEach(e => this.$.overlay.appendChild(e));
             } else {
               // It's a template, reset instance and let super templatize it
               delete this._instance;

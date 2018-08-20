@@ -7,7 +7,6 @@
 <link rel="import" href="../../iron-ajax/iron-ajax.html">
 <link rel="import" href="../../crud-view/crud-list-mixin.html">
 <link rel="import" href="../../crud-view/crud-view.html">
-<link rel="import" href="../../vaadin-pouchdb/vaadin-pouchdb.html">
 
 <link rel="import" href="crud-user-editor.html">
 
@@ -15,9 +14,6 @@
   <template>
 
     <iron-ajax auto url="users.json" handle-as="json" last-response="{{items}}"></iron-ajax>
-    <!-- <vaadin-pouchdb id="db" dbname="crud-demo" data="{{items}}"
-      remote="https://manolo.cloudant.com/demo"
-      ></vaadin-pouchdb> -->
 
     <crud-view item="[[item]]" style="padding: 8px; box-sizing: border-box;">
 

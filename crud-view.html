@@ -8,7 +8,7 @@
   <template>
     <style>
       :host {
-        height: 100%;
+        height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -34,14 +34,6 @@
       <slot name="grid"></slot>
     </div>
 
-    <!-- <crud-buttons-bar
-      on-action1="save" action1-text="Save"
-      on-action2="save" action2-text="Cancel"
-      on-action3="save" action3-text="Delete"
-    ></crud-buttons-bar> -->
-
-
-
     <template id="buttons">
       <style>
         .buttons {
@@ -64,7 +56,7 @@
       </div>
     </template>
 
-    <crud-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right" on-opened-changed="_onOpened"></crud-dialog>
+    <crud-dialog id="dialog" no-close-on-outside-click=[[_noClose]] no-close-on-esc=[[_noClose]] theme="right" on-opened-changed="__onOpened"></crud-dialog>
     <crud-confirm-dialog id="confirm"></crud-confirm-dialog>
 
   </template>
@@ -115,7 +107,7 @@
            */
           item: {
             type: Object,
-            observer: '_itemChanged'
+            observer: '__itemChanged'
           }
         };
       }
@@ -124,8 +116,7 @@
         return 'crud-view';
       }
 
-      /** @private */
-      _createInstance(ctx, tpl) {
+      __createInstance(ctx, tpl) {
         var instance;
         const Templatizer = Polymer.Templatize.templatize(tpl, ctx, {
           instanceProps: {
@@ -142,8 +133,7 @@
         return instance;
       }
 
-      /** @private */
-      _updateVars() {
+      __updateVars() {
         this.dirty = this._list._editor.dirty;
         this._noClose = this.dirty || this.$.confirm.opened;
       }
@@ -163,7 +153,7 @@
         this._list._editor.delete(e);
       }
 
-      _onOpened() {
+      __onOpened() {
         if (this._list && !this.$.dialog.opened) {
           this._closing = true;
           this._list.close();
@@ -171,26 +161,23 @@
         }
       }
 
-      /** @private */
-      _itemChanged(item) {
+      __itemChanged(item) {
         if (this._closing) {
           return;
         }
 
-        if (!this._tpl) {
-          this._tpl = this.querySelector('.editor');
-          if (this._tpl) {
-            // hack so as dialog does not create it's template
-            this.$.dialog._instance = true;
-            this.$.dialog.$.overlay.content = this._createInstance(this, this._tpl).root;
+        if (!this.__editorTpl) {
+          this.__editorTpl = this.querySelector('.editor');
+          if (this.__editorTpl) {
+            var editorRoot = this.__createInstance(this, this.__editorTpl).root;
+            this.$.dialog.appendChild(editorRoot);
             this._list = this.getRootNode().host;
-            this._list._editor = Array.from(this.$.dialog.$.overlay.shadowRoot.querySelectorAll('*')).filter(e => e._hasCrudItemtMixin)[0];
+            this._list._editor = Array.from(this.$.dialog.querySelectorAll('*')).filter(e => e._hasCrudItemtMixin)[0];
+            this.$.dialog.appendChild(this.__createInstance(this._list._editor, this.$.buttons).root);
+
+            this._list._editor.addEventListener('dirty-changed', () => this.__updateVars());
             this._list._editor._dialog = this.$.confirm;
-
-            this.$.dialog.$.overlay.content = this._createInstance(this._list._editor, this.$.buttons).root;
-
-            this._list._editor.addEventListener('dirty-changed', () => this._updateVars());
-            this.$.confirm.addEventListener('opened-changed', () => this._updateVars());
+            this.$.confirm.addEventListener('opened-changed', () => this.__updateVars());
           }
         }
 

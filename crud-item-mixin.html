@@ -92,13 +92,12 @@
 
     static get observers() {
       return [
-        '_onItemChanged(item)',
-        '_checkDirty(item.*)'
+        '__onItemChanged(item)',
+        '__checkDirty(item.*)'
       ];
     }
 
-    /** @private */
-    _onItemChanged() {
+    __onItemChanged() {
       if (!this._itemLock) {
         this.dirty = false;
         this.isNew = !this.item || Object.keys(this.item).length < 1;
@@ -113,8 +112,7 @@
       }
     }
 
-    /** @private */
-    _checkDirty() {
+    __checkDirty() {
       this.dirty = this.item && Object.keys(this.item).length > 0
         && JSON.stringify(this.item) != this._originalItemString;
     }
@@ -125,7 +123,7 @@
      */
     cancel() {
       if (this.dirty) {
-        this._confirm(() => this.close(true),
+        this.__confirm(() => this.close(true),
           this.unsavedCaption, this.unsavedMessage, this.unsavedOkText, this.unsavedCancelText);
       } else {
         this.close();
@@ -172,14 +170,13 @@
      * Sends up a `delete` event with the edited item as the detail.
      */
     delete() {
-      this._confirm(() => {
+      this.__confirm(() => {
         this.dispatchEvent(new CustomEvent('delete', {bubbles: true, composed: true, detail: this.item}));
         this.close(true);
       }, this.deleteCaption, this.deleteMessage, this.deleteOkText, this.deleteCancelText);
     }
 
-    /** @private */
-    _confirm(callback, caption, message, okText, cancelText) {
+    __confirm(callback, caption, message, okText, cancelText) {
       if (this._dialog) { // vaadin-confirm-dialog is imported
         this._dialog.callback = callback;
         this._dialog.caption = caption;
