@@ -121,6 +121,7 @@
      * Persists the changes made to the edited item into the `items` array.
      */
     save(e) {
+      this.items = this.items || [];
       var idx = this.items.indexOf(this.item);
       if (this.items && idx >= 0) {
         this.set('items.' + idx, e.detail);
